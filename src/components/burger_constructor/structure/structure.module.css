@@ -1,0 +1,11 @@
+.item {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex: 1;
+}
+.drag {
+    position: absolute;
+    left: -25px;
+    top: 30px;
+}

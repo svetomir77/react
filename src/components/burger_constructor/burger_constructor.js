@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConstructorElement, Icons, Button, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from "./burger_constructor.module.css";
+import BurgerStructure from "./structure/structure";
+import OrderButton from './order_button/order_button';
 
 class BurgerConstructor extends React.Component {
     render() {
@@ -15,11 +17,7 @@ class BurgerConstructor extends React.Component {
                     thumbnail={this.props.bun.image}
                 />
                 <section className={`${burgerConstructor.scrollWrap} scroller`}>
-                    <ConstructorElement
-                        text="Краторная булка N-200i (верх)"
-                        price={50}
-                        thumbnail={this.props.bun.image}
-                    />
+                    <BurgerStructure data={this.props.data.filter(item => item.type !== 'bun')} className={burgerConstructor.item}/>
                 </section>
                 <ConstructorElement
                     type="bottom"
@@ -28,6 +26,7 @@ class BurgerConstructor extends React.Component {
                     price={this.props.bun.price}
                     thumbnail={this.props.bun.image}
                 />
+                <OrderButton/>
             </section>
         )
     }

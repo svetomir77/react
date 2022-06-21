@@ -1,5 +1,4 @@
 import React from "react";
-import { Typography} from '@ya.praktikum/react-developer-burger-ui-components';
 import headerMenuItem from "./item.module.css";
 
 class HeaderMenuItem extends React.Component {

@@ -10,6 +10,8 @@
     display: flex;
     flex-flow: wrap;
     overflow: auto;
-    height: 500px;
+    height: 465px;
     max-width: 520px;
+    gap: 10px;
+    padding-left: 40px;
 }
