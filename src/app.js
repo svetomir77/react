@@ -12,10 +12,10 @@ function App() {
       <AppHeader/>
       <main className='main'>
         <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
-        <div className='container'>
+        <section className='container'>
             <BurgerIngredients data={data}/>
-            <BurgerConstructor data={data}/>
-        </div>
+            <BurgerConstructor data={data} bun={data[0]}/>
+        </section>
       </main>
     </div>
   );
