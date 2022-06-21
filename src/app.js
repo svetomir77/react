@@ -1,7 +1,6 @@
 import React from 'react';
 import './app.css';
 import data from './utils/data.js';
-import { Typography, Box} from '@ya.praktikum/react-developer-burger-ui-components';
 import AppHeader from './components/app_header/app_header.js';
 import BurgerIngredients from './components/burger_ingredients/burger_ingredients.js';
 import BurgerConstructor from './components/burger_constructor/burger_constructor.js';

@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Counter, Icons, Tab, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from "./burger_ingredients.module.css";
 import TabBar from './tab_bar/tab_bar';
 import IngredientList from './list/list';
+import dataTypes from '../../utils/data_types.js';
 
 class BurgerIngredients extends React.Component {
     render() {
@@ -29,5 +28,7 @@ class BurgerIngredients extends React.Component {
         )
     }
 }
+
+BurgerIngredients.propTypes = dataTypes;
 
 export default BurgerIngredients;
