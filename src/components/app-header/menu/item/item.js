@@ -1,5 +1,6 @@
 import React from "react";
 import headerMenuItem from "./item.module.css";
+import PropTypes from "prop-types";
 
 class HeaderMenuItem extends React.Component {
     render() {
@@ -9,6 +10,10 @@ class HeaderMenuItem extends React.Component {
             </li>
         );
     }
+}
+
+HeaderMenuItem.propTypes = {
+    children: PropTypes.any.isRequired
 }
 
 export default HeaderMenuItem;

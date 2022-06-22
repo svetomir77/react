@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from "prop-types";
 class HeaderMenuItemText extends React.Component {
     render() {
         return (
@@ -8,6 +8,9 @@ class HeaderMenuItemText extends React.Component {
             </span>
         );
     }
+}
+HeaderMenuItemText.propTypes = {
+    children: PropTypes.string.isRequired
 }
 
 export default HeaderMenuItemText;

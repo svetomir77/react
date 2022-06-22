@@ -1,5 +1,6 @@
 import React from "react";
 import headerMenu from "./menu.module.css";
+import PropTypes from 'prop-types';
 
 class HeaderMenu extends React.Component {
     render() {
@@ -9,6 +10,11 @@ class HeaderMenu extends React.Component {
             </nav>
         );
     }
+}
+
+HeaderMenu.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.any.isRequired
 }
 
 export default HeaderMenu;

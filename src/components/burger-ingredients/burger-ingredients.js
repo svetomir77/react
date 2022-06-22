@@ -1,8 +1,8 @@
 import React from 'react';
-import burgerIngredients from "./burger_ingredients.module.css";
-import TabBar from './tab_bar/tab_bar';
+import burgerIngredients from "./burger-ingredients.module.css";
+import TabBar from './tab-bar/tab-bar';
 import IngredientList from './list/list';
-import dataTypes from '../../utils/data_types.js';
+import dataTypes from '../../utils/data-types.js';
 
 class BurgerIngredients extends React.Component {
     render() {
@@ -22,6 +22,7 @@ class BurgerIngredients extends React.Component {
                 </section>
                 <section className='mt-2'>
                     <h2 className='text text_type_main-medium'>Начинки</h2>
+                    <IngredientList data={this.props.data.filter(item => item.type === 'main')}></IngredientList>
                 </section>
             </section>
             </div>
@@ -29,6 +30,8 @@ class BurgerIngredients extends React.Component {
     }
 }
 
-BurgerIngredients.propTypes = dataTypes;
+BurgerIngredients.propTypes = {
+    data: dataTypes
+};
 
 export default BurgerIngredients;

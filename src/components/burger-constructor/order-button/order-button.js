@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import orderButton from "./order_button.module.css";
+import orderButton from "./order-button.module.css";
 
 class OrderButton extends React.Component {
     render() {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerConstructor from "./burger_constructor.module.css";
+import burgerConstructor from "./burger-constructor.module.css";
 import BurgerStructure from "./structure/structure";
-import OrderButton from './order_button/order_button';
-import dataTypes from '../../utils/data_types.js';
+import OrderButton from './order-button/order-button';
+import dataTypes from '../../utils/data-types.js';
+import ingredientTypes from "../../utils/ingredient-types";
 
 class BurgerConstructor extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class BurgerConstructor extends React.Component {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={this.props.bun.name}
+                    text={`${this.props.bun.name} (верх)`}
                     price={this.props.bun.price}
                     thumbnail={this.props.bun.image}
                 />
@@ -22,7 +23,7 @@ class BurgerConstructor extends React.Component {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={this.props.bun.name}
+                    text={`${this.props.bun.name} (низ)`}
                     price={this.props.bun.price}
                     thumbnail={this.props.bun.image}
                 />
@@ -32,6 +33,9 @@ class BurgerConstructor extends React.Component {
     }
 }
 
-BurgerConstructor.propTypes = dataTypes;
+BurgerConstructor.propTypes = {
+    data: dataTypes,
+    bun: ingredientTypes.isRequired,
+};
 
 export default BurgerConstructor;
