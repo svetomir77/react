@@ -1,0 +1,10 @@
+.main {
+    display: flex;
+    align-items: center;
+}
+.main svg {
+    width: 33px !important;
+    height: 33px !important;
+    position: relative;
+    top: 4px;
+}

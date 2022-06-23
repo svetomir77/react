@@ -1,0 +1,17 @@
+.main {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.scrollWrap {
+    display: flex;
+    flex-flow: wrap;
+    overflow: auto;
+    height: 465px;
+    max-width: 520px;
+    gap: 10px;
+    padding-left: 40px;
+}

@@ -1,0 +1,26 @@
+.item {
+    position: relative;
+    width: 272px;
+    height: 208px;
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+}
+.price {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+.text {
+    align-self: center;
+    text-align: center;
+}
+.priceNum {
+    margin-right: 9px;
+}
+.wrap {
+    display: flex;
+    flex-flow: wrap;
+}
+

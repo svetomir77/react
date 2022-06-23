@@ -1,0 +1,15 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1C1C21;
+    width: -webkit-fill-available;
+}
+.logo {
+    margin-left: 112px;
+}
+
+.account {
+    display: flex;
+    margin-left: 289px;
+}
