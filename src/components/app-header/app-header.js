@@ -5,29 +5,27 @@ import HeaderMenu from "./menu/menu";
 import HeaderMenuItem from "./menu/item/item";
 import HeaderMenuItemText from "./menu/item/text/text";
 
-class AppHeader extends React.Component {
-    render() {
-        return (
-            <header className={`${appHeader.main} p-4`}>
-                <HeaderMenu>
-                    <HeaderMenuItem>
-                        <BurgerIcon type="primary" /> <HeaderMenuItemText>Конструктор</HeaderMenuItemText>
-                    </HeaderMenuItem>
-                    <HeaderMenuItem>
-                        <ListIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
-                    </HeaderMenuItem>
-                </HeaderMenu>
-                <section className={appHeader.logo}>
-                    <Logo/>
-                </section>
-                <HeaderMenu className={appHeader.account}>
-                    <HeaderMenuItem>
-                        <ProfileIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
-                    </HeaderMenuItem>
-                </HeaderMenu>
-            </header>
-        );
-    }
+function AppHeader () {
+    return (
+        <header className={`${appHeader.main} p-4`}>
+            <HeaderMenu>
+                <HeaderMenuItem>
+                    <BurgerIcon type="primary" /> <HeaderMenuItemText>Конструктор</HeaderMenuItemText>
+                </HeaderMenuItem>
+                <HeaderMenuItem>
+                    <ListIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
+                </HeaderMenuItem>
+            </HeaderMenu>
+            <section className={appHeader.logo}>
+                <Logo/>
+            </section>
+            <HeaderMenu className={appHeader.account}>
+                <HeaderMenuItem>
+                    <ProfileIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
+                </HeaderMenuItem>
+            </HeaderMenu>
+        </header>
+    );
 }
 
 export default AppHeader;
