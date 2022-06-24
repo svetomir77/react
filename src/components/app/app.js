@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import data from '../../utils/data.js';
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
 import BurgerConstructor from '../burger-constructor/burger-constructor.js';
@@ -15,19 +14,26 @@ function App() {
     });
 
     const getData = async () => {
-        let data = [];
         setState({...state, hasError: false, isLoading: true});
-        const fetchData = await fetch(DATA_URL);
-        try {
-            const {data, success} = await fetchData.json();
-            success ? data.length && setState({...state, data, isLoading: false}) : setState({
+        const someError = () => {
+            setState({
                 ...state,
                 isLoading: false,
                 hasError: 'Что-то пошло не так...'
             });
-        } catch (err) {
-            setState({...state, isLoading: false, hasError: err.toString()})
         }
+        fetch(DATA_URL).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            someError();
+        }).then((responseJson) => {
+            const {data, success} = responseJson;
+            success ? data.length && setState({...state, data, isLoading: false}) : someError();
+        })
+        .catch((error) => {
+            setState({...state, isLoading: false, hasError: error.toString()})
+        });
     };
 
     useEffect(() => {
