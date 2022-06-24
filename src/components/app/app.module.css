@@ -15,5 +15,12 @@
   display: flex;
   justify-content: space-between;
 }
-
+.centerText {
+  text-align: center;
+  width: 100%;
+  margin: 100px;
+}
+.error {
+  color: red;
+}
 
