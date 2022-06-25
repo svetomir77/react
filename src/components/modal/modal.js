@@ -13,7 +13,7 @@ function Modal (props) {
 
     useEffect(() => {
         const close = (e) => {
-            if(e.keyCode === 27){
+            if(e.key === 'Escape'){
                 onClose();
             }
         }
@@ -25,7 +25,7 @@ function Modal (props) {
         <>
             <section className={styles.container}>
                 <section className={styles.window} style={{height: height + 'px', width: width + 'px'}}>
-                <header className='mt-10 ml-10 text text_type_main-large'>{title}<span className={`${styles.closeIcon} icon mt-10 mr-10`} onClick={onClose}><CloseIcon type="primary"/></span></header>
+                <h2 className='mt-10 ml-10 text text_type_main-large'>{title}<span className={`${styles.closeIcon} icon mt-10 mr-10`} onClick={onClose}><CloseIcon type="primary"/></span></h2>
                 <main className={styles.body}>
                     {children}
                 </main>

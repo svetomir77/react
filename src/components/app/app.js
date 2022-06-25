@@ -15,24 +15,25 @@ function App() {
 
     const getData = async () => {
         setState({...state, hasError: false, isLoading: true});
-        const someError = () => {
+        const someError = (error) => {
             setState({
                 ...state,
                 isLoading: false,
-                hasError: 'Что-то пошло не так...'
+                hasError: error
             });
         }
         fetch(DATA_URL).then((response) => {
             if (response.ok) {
                 return response.json();
             }
-            someError();
+            return Promise.reject(`Произошла ошибка: ${response.status} ${response.statusText}`);
         }).then((responseJson) => {
             const {data, success} = responseJson;
-            success ? data.length && setState({...state, data, isLoading: false}) : someError();
+            success ? data.length && setState({...state, data, isLoading: false})
+                : someError('Что-то пошло не так...');
         })
         .catch((error) => {
-            setState({...state, isLoading: false, hasError: error.toString()})
+            someError(error.toString());
         });
     };
 
@@ -49,7 +50,7 @@ function App() {
                 <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
                 <section className={styles.container}>
                     {isLoading && <div className={styles.centerText}>Загрузка...</div>}
-                    {hasError && <div className={`${styles.centerText} ${styles.error}`}>Произошла ошибка</div>}
+                    {hasError && <div className={`${styles.centerText} ${styles.error}`}>{hasError}</div>}
                     {!isLoading &&
                     !hasError &&
                     data.length &&
