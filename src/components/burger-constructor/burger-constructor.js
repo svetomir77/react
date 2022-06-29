@@ -7,9 +7,12 @@ import { DataContext, BurgerContext } from "../../utils/user-context";
 
 function BurgerConstructor () {
     const data = useContext(DataContext);
+
+    //временно, пока не сделан D&D - булка + случайные 5 ингридиентов
     const bun = useMemo(() => data.find(item => item.type === 'bun'), [data]);
     const shuffled = useMemo(() => data.sort(() => 0.5 - Math.random()), [data]);
     const list = useMemo(() => shuffled.filter(item => item.type !== 'bun').slice(0, 4), [shuffled]);
+
     const initialState = { orderNum: null, total: 0 };
 
     function reducer(state, action) {

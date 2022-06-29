@@ -22,8 +22,10 @@ function OrderDetails() {
     }, [orderNum]);
 
     useEffect(() => {
+        const ingredientIds = list.map(item => item._id);
+        const bunId = bun._id;
         const params = {
-            ingredients: [...list.map(item => item._id), bun._id, bun._id]
+            ingredients: [...ingredientIds, bunId, bunId]
         };
         postOrder({state, setState, params});
     }, []);
