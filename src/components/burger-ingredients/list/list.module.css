@@ -22,5 +22,6 @@
 .wrap {
     display: flex;
     flex-flow: wrap;
+    cursor: pointer;
 }
 

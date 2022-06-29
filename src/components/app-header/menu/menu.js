@@ -2,14 +2,12 @@ import React from "react";
 import headerMenu from "./menu.module.css";
 import PropTypes from 'prop-types';
 
-class HeaderMenu extends React.Component {
-    render() {
-        return (
-            <nav className={`${(this.props.className ? this.props.className : '')} ${headerMenu.menu}`}>
-                {this.props.children}
-            </nav>
-        );
-    }
+function HeaderMenu (props) {
+    return (
+        <nav className={`${(props.className ? props.className : '')} ${headerMenu.menu}`}>
+            {props.children}
+        </nav>
+    );
 }
 
 HeaderMenu.propTypes = {
