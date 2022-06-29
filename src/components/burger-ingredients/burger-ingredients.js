@@ -1,41 +1,33 @@
-import React, { useState } from 'react';
+import React, {useState, useMemo, useContext} from 'react';
 import burgerIngredients from "./burger-ingredients.module.css";
 import TabBar from './tab-bar/tab-bar';
-import IngredientList from './list/list';
-import dataTypes from '../../utils/data-types.js';
+import IngredientSection from "./section/section";
+import {DataContext} from "../../utils/user-context";
 
-function BurgerIngredients (props) {
+function BurgerIngredients () {
     const [currentTab, setCurrentTab] = useState('bun');
     const onTabClick = (tab) => {
         setCurrentTab(tab);
         const el = document.getElementById(tab);
         if (el) el.scrollIntoView({behavior: "smooth"});
     }
+    const data = useContext(DataContext);
+    const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+    const sauce = useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
+    const main = useMemo(() => data.filter(item => item.type === 'main'), [data]);
+
     return (
         <div className={burgerIngredients.main}>
         <section>
             <TabBar onTabClick={onTabClick} currentTab={currentTab}/>
         </section>
         <section className={`${burgerIngredients.scrollWrap} scroller`}>
-            <section className='mt-10'>
-                <h2 className='text text_type_main-medium' id='bun'>Булки</h2>
-                <IngredientList data={props.data.filter(item => item.type === 'bun')}></IngredientList>
-            </section>
-            <section className='mt-2'>
-                <h2 className='text text_type_main-medium' id='sauce'>Соусы</h2>
-                <IngredientList data={props.data.filter(item => item.type === 'sauce')}></IngredientList>
-            </section>
-            <section className='mt-2'>
-                <h2 className='text text_type_main-medium' id='main'>Начинки</h2>
-                <IngredientList data={props.data.filter(item => item.type === 'main')}></IngredientList>
-            </section>
+            <IngredientSection id='bun' list={buns} title='Булки'/>
+            <IngredientSection id='sauce' list={sauce} title='Соусы'/>
+            <IngredientSection id='main' list={main} title='Начинки'/>
         </section>
         </div>
     )
 }
-
-BurgerIngredients.propTypes = {
-    data: dataTypes
-};
 
 export default BurgerIngredients;

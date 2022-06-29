@@ -1,14 +1,54 @@
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-details.module.css';
+import {postOrder} from "../../utils/api";
+import React, {useContext, useEffect, useState} from "react";
+import {BurgerContext} from "../../utils/user-context";
 
-function OrderDetails () {
+function OrderDetails() {
+    const [state, setState] = useState({
+        isLoading: false,
+        hasError: false,
+        data: []
+    });
+    const {data, isLoading, hasError} = state;
+    const orderNum = data && data.order && data.order.number;
+
+    const {list, bun, orderReducer} = useContext(BurgerContext);
+    const [orderState, orderDispatch] = orderReducer;
+
+    //устанваливаем state в компонент BurgerConstructor
+    useEffect(() => {
+        orderDispatch({type: 'order', orderNum});
+    }, [orderNum]);
+
+    useEffect(() => {
+        const params = {
+            ingredients: [...list.map(item => item._id), bun._id, bun._id]
+        };
+        postOrder({state, setState, params});
+    }, []);
+
     return (
         <>
-            <section className='text text_type_digits-large mt-30'>034536</section>
-            <section className='text text_type_main-medium mt-8'>идентификатор заказа</section>
-            <section className={`${styles.check} mt-15 mb-15`}><CheckMarkIcon type="primary" /></section>
-            <section className='text text_type_main-small bt-2'>Ваш заказ начали готовить</section>
-            <section className='text text_type_main-small text_color_inactive'>Дождитесь готовности на орбитальной станции</section>
+            {isLoading && <div className="centerText">Сохранение...</div>}
+            {
+                hasError && <div className="centerText error">{hasError}</div>
+            }
+            {
+                !isLoading &&
+                !hasError &&
+                orderNum &&
+                <>
+                    <section className='text text_type_digits-large mt-30'>{orderNum}</section>
+                    <section className='text text_type_main-medium mt-8'>идентификатор заказа</section>
+                    <section className={`${styles.check} mt-15 mb-15`}><CheckMarkIcon type="primary"/></section>
+                    <section className='text text_type_main-small bt-2'>Ваш заказ начали готовить</section>
+                    <section className='text text_type_main-small text_color_inactive'>Дождитесь готовности на
+                        орбитальной
+                        станции
+                    </section>
+                </>
+            }
         </>
     );
 }

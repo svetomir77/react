@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerStructure from "./structure.module.css";
+import {BurgerContext} from "../../../utils/user-context";
 
-function BurgerStructure (props) {
+function BurgerStructure () {
+    const { list } = useContext(BurgerContext);
     return (
-        props.data.map((item, index)=>(
+        list.map((item, index)=>(
             <li className={burgerStructure.item} key={item._id}>
                 <span className={burgerStructure.drag}><DragIcon type="primary"/></span>
                 <ConstructorElement
