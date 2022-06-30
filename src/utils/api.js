@@ -1,15 +1,16 @@
 const BURGER_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
-function apiFetch(url, state, setState, config) {
-    setState({...state, hasError: false, isLoading: true});
-    const someError = (error) => {
-        setState({
-            ...state,
+function apiFetch(url, loaderState, setLoaderState, config, uuidGenerator) {
+    setLoaderState({...loaderState, hasError: false, isLoading: true});
+    const setError = (error) => {
+        setLoaderState({
+            ...loaderState,
             isLoading: false,
             hasError: error
         });
     }
+
     fetch(url, config || {})
         .then((response, config) => {
             if (response.ok) {
@@ -24,19 +25,20 @@ function apiFetch(url, state, setState, config) {
             if (success && !data) {
                 result = other;
             }
-            success ? setState({...state, data: result, isLoading: false})
-                : someError('Что-то пошло не так...');
+
+            success ? setLoaderState({...loaderState, data: result, isLoading: false})
+                : setError('Что-то пошло не так...');
         })
         .catch((error) => {
-            someError(error.toString());
+            setError(error.toString());
         });
 }
 
-function loadIngredients({state, setState}) {
-    apiFetch(BURGER_URL, state, setState);
+function loadIngredients({loaderState, setLoaderState}) {
+    apiFetch(BURGER_URL, loaderState, setLoaderState);
 }
 
-function postOrder({state, setState, params}) {
+function postOrder({loaderState, setLoaderState, params}) {
     const config = {
         method: 'POST',
         headers: {
@@ -45,7 +47,7 @@ function postOrder({state, setState, params}) {
         },
         body: JSON.stringify(params)
     }
-    apiFetch(ORDER_URL, state, setState, config);
+    apiFetch(ORDER_URL, loaderState, setLoaderState, config);
 }
 
 export { loadIngredients, postOrder };

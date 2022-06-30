@@ -2,18 +2,18 @@ import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './order-details.module.css';
 import {postOrder} from "../../utils/api";
 import React, {useContext, useEffect, useState} from "react";
-import {BurgerContext} from "../../utils/user-context";
+import {BurgerContext} from "../../services/user-context";
 
 function OrderDetails() {
-    const [state, setState] = useState({
+    const [loaderState, setLoaderState] = useState({
         isLoading: false,
         hasError: false,
-        data: []
+        data: {}
     });
-    const {data, isLoading, hasError} = state;
-    const orderNum = data && data.order && data.order.number;
+    const {data: result, isLoading, hasError} = loaderState;
+    const orderNum = result && result.order && result.order.number;
 
-    const {list, bun, orderReducer} = useContext(BurgerContext);
+    const {ingredients, bun, orderReducer} = useContext(BurgerContext);
     const [orderState, orderDispatch] = orderReducer;
 
     //устанваливаем state в компонент BurgerConstructor
@@ -22,12 +22,12 @@ function OrderDetails() {
     }, [orderNum]);
 
     useEffect(() => {
-        const ingredientIds = list.map(item => item._id);
+        const ingredientIds = ingredients.map(item => item._id);
         const bunId = bun._id;
         const params = {
-            ingredients: [...ingredientIds, bunId, bunId]
+            ingredients: [bunId, ...ingredientIds, bunId]
         };
-        postOrder({state, setState, params});
+        postOrder({loaderState, setLoaderState, params});
     }, []);
 
     return (

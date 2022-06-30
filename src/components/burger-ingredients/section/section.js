@@ -1,20 +1,20 @@
 import React from 'react';
 import IngredientList from '../list/list';
-import dataTypes from '../../../utils/data-types.js';
+import ingredientsTypes from '../../../utils/ingredients-types.js';
 import PropTypes from 'prop-types';
 
 
-function IngredientSection({id, list, title}) {
+function IngredientSection({id, ingredients, title}) {
     return (
         <section className='mt-10'>
             <h2 className='text text_type_main-medium' id={id}>{title}</h2>
-            <IngredientList data={list}></IngredientList>
+            <IngredientList ingredients={ingredients}></IngredientList>
         </section>
     )
 }
-IngredientSection.dataTypes = {
+IngredientSection.ingredientsTypes = {
     id: PropTypes.string.isRequired,
-    list: dataTypes,
+    ingredients: ingredientsTypes,
     title: PropTypes.string.isRequired,
 }
 

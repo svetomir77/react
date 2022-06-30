@@ -3,24 +3,24 @@ import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-comp
 import orderButton from "./order-button.module.css";
 import Modal from '../../modal/modal';
 import OrderDetails from '../../order-details/order-details';
-import {BurgerContext} from "../../../utils/user-context";
+import {BurgerContext} from "../../../services/user-context";
 
 function OrderButton () {
-    const {list, bun, orderReducer} = useContext(BurgerContext);
+    const {ingredients, bun, orderReducer} = useContext(BurgerContext);
     const [orderState, orderDispatch] = orderReducer;
-    const [state, setState] = useState({
-        orderModalVisible: false
+    const [modalState, setModalState] = useState({
+        visible: false
     });
 
     useEffect(() => {
-        orderDispatch({type: 'total', list, bun});
-    }, [list, bun]);
+        orderDispatch({type: 'total', ingredients, bun});
+    }, [ingredients, bun]);
 
     const handleOpenModal = () => {
-        setState({...state, orderModalVisible: true });
+        setModalState({...modalState, visible: true });
     }
     const handleCloseModal = () => {
-        setState({...state, orderModalVisible: false });
+        setModalState({...modalState, visible: false });
     }
     return (
         <section className={`${orderButton.main} mt-10`}>
@@ -28,7 +28,7 @@ function OrderButton () {
             <Button type="primary" size="medium" onClick={handleOpenModal}>
                 Оформить заказ
             </Button>
-            {state.orderModalVisible && <Modal width={720} height={720} onClose={handleCloseModal}><OrderDetails/></Modal>}
+            {modalState.visible && <Modal width={720} height={720} onClose={handleCloseModal}><OrderDetails/></Modal>}
         </section>
     )
 }

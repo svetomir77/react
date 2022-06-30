@@ -4,11 +4,11 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
 import BurgerConstructor from '../burger-constructor/burger-constructor.js';
 import styles from './app.module.css';
 import {loadIngredients} from "../../utils/api";
-import {DataContext} from "../../utils/user-context";
+import {IngredientsContext} from "../../services/user-context";
 
 function App() {
 
-    const [state, setState] = useState({
+    const [loaderState, setLoaderState] = useState({
         isLoading: false,
         hasError: false,
         data: []
@@ -16,10 +16,10 @@ function App() {
 
 
     useEffect(() => {
-        loadIngredients({state, setState});
+        loadIngredients({loaderState, setLoaderState});
     }, []);
 
-    const {data, isLoading, hasError} = state;
+    const {data: ingredients, isLoading, hasError} = loaderState;
 
     return (
         <div className={styles.app}>
@@ -31,12 +31,12 @@ function App() {
                     {hasError && <div className="centerText error">{hasError}</div>}
                     {!isLoading &&
                     !hasError &&
-                    data.length &&
+                    ingredients.length &&
                     <>
-                    <DataContext.Provider value={data}>
+                    <IngredientsContext.Provider value={ingredients}>
                         <BurgerIngredients/>
                         <BurgerConstructor/>
-                    </DataContext.Provider>
+                    </IngredientsContext.Provider>
                     </>
                     }
                 </section>

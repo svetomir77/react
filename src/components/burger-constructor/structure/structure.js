@@ -1,13 +1,15 @@
 import React, {useContext} from "react";
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerStructure from "./structure.module.css";
-import {BurgerContext} from "../../../utils/user-context";
+import {BurgerContext} from "../../../services/user-context";
+import generateUUID from "../../../utils/uuid";
 
 function BurgerStructure () {
-    const { list } = useContext(BurgerContext);
+    const { ingredients } = useContext(BurgerContext);
+    const ingredientsWithUuid = generateUUID(ingredients, '_id');
     return (
-        list.map((item, index)=>(
-            <li className={burgerStructure.item} key={item._id}>
+        ingredientsWithUuid.map((item, index)=>(
+            <li className={burgerStructure.item} key={item.uuid}>
                 <span className={burgerStructure.drag}><DragIcon type="primary"/></span>
                 <ConstructorElement
                     text={item.name}

@@ -3,15 +3,15 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import burgerConstructor from "./burger-constructor.module.css";
 import BurgerStructure from "./structure/structure";
 import OrderButton from './order-button/order-button';
-import { DataContext, BurgerContext } from "../../utils/user-context";
+import { IngredientsContext, BurgerContext } from "../../services/user-context";
 
 function BurgerConstructor () {
-    const data = useContext(DataContext);
+    const allIngredients = useContext(IngredientsContext);
 
     //временно, пока не сделан D&D - булка + случайные 5 ингридиентов
-    const bun = useMemo(() => data.find(item => item.type === 'bun'), [data]);
-    const shuffled = useMemo(() => data.sort(() => 0.5 - Math.random()), [data]);
-    const list = useMemo(() => shuffled.filter(item => item.type !== 'bun').slice(0, 4), [shuffled]);
+    const bun = useMemo(() => allIngredients.find(item => item.type === 'bun'), [allIngredients]);
+    const shuffled = useMemo(() => allIngredients.sort(() => 0.5 - Math.random()), [allIngredients]);
+    const ingredients = useMemo(() => shuffled.filter(item => item.type !== 'bun').slice(0, 4), [shuffled]);
 
     const initialState = { orderNum: null, total: 0 };
 
@@ -19,9 +19,9 @@ function BurgerConstructor () {
         switch (action.type) {
             case "total":
                 let sum = 0;
-                const {list, bun} = action;
-                if (list && bun) {
-                    sum += (list.reduce((acc, current) => acc + Number(current.price), 0)) || 0;
+                const {ingredients, bun} = action;
+                if (ingredients && bun) {
+                    sum += (ingredients.reduce((acc, current) => acc + Number(current.price), 0)) || 0;
                     sum += Number(bun.price) * 2;
                 }
 
@@ -35,7 +35,7 @@ function BurgerConstructor () {
     const orderReducer = useReducer(reducer, initialState);
 
     return (
-        <BurgerContext.Provider value={{list, bun, orderReducer}}>
+        <BurgerContext.Provider value={{ingredients, bun, orderReducer}}>
         <section className={burgerConstructor.main}>
             <ConstructorElement
                 type="top"
