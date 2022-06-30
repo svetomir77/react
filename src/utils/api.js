@@ -1,7 +1,7 @@
 const BURGER_URL = 'https://norma.nomoreparties.space/api/ingredients';
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
-function apiFetch(url, loaderState, setLoaderState, config, uuidGenerator) {
+function apiFetch(url, loaderState, setLoaderState, config) {
     setLoaderState({...loaderState, hasError: false, isLoading: true});
     const setError = (error) => {
         setLoaderState({
