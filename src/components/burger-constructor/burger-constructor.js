@@ -1,42 +1,38 @@
-import React, {useContext, useMemo, useReducer} from 'react';
+import React, {useMemo} from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from "./burger-constructor.module.css";
 import BurgerStructure from "./structure/structure";
 import OrderButton from './order-button/order-button';
-import { IngredientsContext, BurgerContext } from "../../services/user-context";
+import {useDrop} from "react-dnd";
+import {useDispatch, useSelector} from "react-redux";
+import { addIngredient, addBun } from '../../services/slices/burger';
 
 function BurgerConstructor () {
-    const allIngredients = useContext(IngredientsContext);
 
-    //временно, пока не сделан D&D - булка + случайные 5 ингридиентов
-    const bun = useMemo(() => allIngredients.find(item => item.type === 'bun'), [allIngredients]);
-    const shuffled = useMemo(() => allIngredients.sort(() => 0.5 - Math.random()), [allIngredients]);
-    const ingredients = useMemo(() => shuffled.filter(item => item.type !== 'bun').slice(0, 4), [shuffled]);
+    const dispatch = useDispatch();
+    const {bun, ingredients} = useSelector(store => store.burger);
 
-    const initialState = { orderNum: null, total: 0 };
-
-    function reducer(state, action) {
-        switch (action.type) {
-            case "total":
-                let sum = 0;
-                const {ingredients, bun} = action;
-                if (ingredients && bun) {
-                    sum += (ingredients.reduce((acc, current) => acc + Number(current.price), 0)) || 0;
-                    sum += Number(bun.price) * 2;
-                }
-
-                return { ...state, total: sum };
-            case "order":
-                return { ...state, orderNum: action.orderNum };
-            default:
-                throw new Error(`Wrong type of action: ${action.type}`);
+    const onDrop = (ingredient) => {
+        if (ingredient.type === 'bun') {
+           dispatch(addBun(ingredient));
+        } else {
+           dispatch(addIngredient(ingredient));
         }
     }
-    const orderReducer = useReducer(reducer, initialState);
+
+    const [{isHover}, dropTarget] = useDrop({
+        accept: 'ingredient',
+        drop(item) {
+            onDrop(item);
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
 
     return (
-        <BurgerContext.Provider value={{ingredients, bun, orderReducer}}>
-        <section className={burgerConstructor.main}>
+        <section className={`${burgerConstructor.main}`}>
+            <div className={`${burgerConstructor.dropTarget} ${isHover ? burgerConstructor.dropHover : ''}`} ref={dropTarget}>
             <ConstructorElement
                 type="top"
                 isLocked={true}
@@ -54,9 +50,9 @@ function BurgerConstructor () {
                 price={bun.price}
                 thumbnail={bun.image}
             />
+            </div>
             <OrderButton/>
         </section>
-        </BurgerContext.Provider>
     )
 }
 

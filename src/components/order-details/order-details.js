@@ -2,7 +2,7 @@ import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './order-details.module.css';
 import {postOrder} from "../../utils/api";
 import React, {useContext, useEffect, useState} from "react";
-import {BurgerContext} from "../../services/user-context";
+//import {BurgerContext} from "../../services/user-context";
 
 function OrderDetails() {
     const [loaderState, setLoaderState] = useState({
@@ -13,7 +13,7 @@ function OrderDetails() {
     const {data: result, isLoading, hasError} = loaderState;
     const orderNum = result && result.order && result.order.number;
 
-    const {ingredients, bun, orderReducer} = useContext(BurgerContext);
+    const {ingredients, bun, orderReducer} = {ingredients:[], bun: null, orderReducer: () => {}};
     const [orderState, orderDispatch] = orderReducer;
 
     //устанваливаем state в компонент BurgerConstructor

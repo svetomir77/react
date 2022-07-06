@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './report_web_vitals';
+import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit'
+
+import rootReducer from './services/reducers';
+import {Provider} from "react-redux";
+
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: [thunk],
+    devTools: true,
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,7 +21,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+      <Provider store={store}>
+          <App />
+      </Provider>
   </React.StrictMode>
 );
 

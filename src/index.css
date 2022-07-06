@@ -49,3 +49,7 @@ ul {
 .error {
   color: red;
 }
+
+img[src=""] {
+  display: none;
+}

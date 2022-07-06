@@ -9,3 +9,9 @@
     left: -25px;
     top: 30px;
 }
+
+.defaultText {
+    display: block;
+    margin: 25px 170px;
+    color: #8585AD;
+}

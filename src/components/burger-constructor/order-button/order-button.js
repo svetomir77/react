@@ -3,18 +3,24 @@ import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-comp
 import orderButton from "./order-button.module.css";
 import Modal from '../../modal/modal';
 import OrderDetails from '../../order-details/order-details';
-import {BurgerContext} from "../../../services/user-context";
+import {useDispatch, useSelector} from "react-redux";
+import {getTotal} from "../../../services/slices/order-details";
 
 function OrderButton () {
-    const {ingredients, bun, orderReducer} = useContext(BurgerContext);
-    const [orderState, orderDispatch] = orderReducer;
     const [modalState, setModalState] = useState({
         visible: false
     });
-
+    const dispatch = useDispatch();
+    const {bun, ingredients, total} = useSelector((store) => {
+        return {
+            bun: store.burger.bun,
+            ingredients: store.burger.ingredients,
+            total: store.order.total,
+        }
+    });
     useEffect(() => {
-        orderDispatch({type: 'total', ingredients, bun});
-    }, [ingredients, bun]);
+        dispatch(getTotal({bun, ingredients}));
+    }, [bun, ingredients]);
 
     const handleOpenModal = () => {
         setModalState({...modalState, visible: true });
@@ -24,7 +30,7 @@ function OrderButton () {
     }
     return (
         <section className={`${orderButton.main} mt-10`}>
-            <span className={`${orderButton.price} mr-10`}><span className='text text_type_digits-medium p-1'>{orderState.total}</span> <CurrencyIcon type="primary" /></span>
+            <span className={`${orderButton.price} mr-10`}><span className='text text_type_digits-medium p-1'>{total}</span> <CurrencyIcon type="primary" /></span>
             <Button type="primary" size="medium" onClick={handleOpenModal}>
                 Оформить заказ
             </Button>

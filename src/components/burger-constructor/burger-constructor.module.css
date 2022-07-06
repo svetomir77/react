@@ -2,16 +2,30 @@
     width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: flex-end;
+}
+.dropTarget > div {
+    width: 500px;
 }
 
 .scrollWrap {
     display: flex;
-    flex-flow: wrap;
+    flex-flow: column;
     overflow: auto;
-    height: 440px;
+    min-height: 80px;
+    max-height: 440px;
     max-width: 535px;
     gap: 10px;
-    padding-left: 40px;
+    overflow: visible;
+}
+
+.dropTarget {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px dashed transparent;
+    align-items: flex-end;
+}
+.dropHover {
+    border: 2px dashed #5a76ff;
 }
