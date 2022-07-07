@@ -3,7 +3,7 @@ import { loadIngredients } from '../../utils/api';
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetch',
-    async (userId, { rejectWithValue }) => {
+    async (params, { rejectWithValue }) => {
         try {
             const response = await loadIngredients();
             return response.data;

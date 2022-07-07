@@ -16,16 +16,26 @@
     max-height: 440px;
     max-width: 535px;
     gap: 10px;
-    overflow: visible;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .dropTarget {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     border: 2px dashed transparent;
     align-items: flex-end;
 }
 .dropHover {
     border: 2px dashed #5a76ff;
 }
+.dropHover :global(li.over:before)  {
+    content: ' ';
+    position: absolute;
+    border-top: 2px dashed #ff9900;
+    width: 90%;
+    left: 5%;
+    top: -5px;
+}
+

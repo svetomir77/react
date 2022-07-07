@@ -1,4 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {postOrder} from "../../utils/api";
+
+export const placeOrder = createAsyncThunk(
+    'order/place',
+    async (params, { rejectWithValue }) => {
+        try {
+            const response = await postOrder(params);
+            return response.order.number;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
 
 const initialState = {
     num: null,
@@ -16,14 +29,26 @@ const orderSlice = createSlice({
             total += Number(bun.price) * 2;
             state.total = total;
         },
-        getOrderNum(state, action) {
-            state.num = action.payload;
-        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(placeOrder.pending, (state) => {
+                state.isLoading = true;
+                state.hasError = null;
+            })
+            .addCase(placeOrder.fulfilled, (state, action) => {
+                state.num = action.payload;
+                state.isLoading = false;
+                state.hasError = null;
+            })
+            .addCase(placeOrder.rejected, (state, action) => {
+                state.isLoading = false;
+                state.hasError = action.payload;
+            });
     },
 });
 
 export const {
     getTotal,
-    getOrderNum,
 } = orderSlice.actions;
 export default orderSlice.reducer;

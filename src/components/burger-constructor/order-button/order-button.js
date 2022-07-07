@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import orderButton from "./order-button.module.css";
 import Modal from '../../modal/modal';
@@ -31,7 +31,7 @@ function OrderButton () {
     return (
         <section className={`${orderButton.main} mt-10`}>
             <span className={`${orderButton.price} mr-10`}><span className='text text_type_digits-medium p-1'>{total}</span> <CurrencyIcon type="primary" /></span>
-            <Button type="primary" size="medium" onClick={handleOpenModal}>
+            <Button type="primary" size="medium" onClick={handleOpenModal} disabled={(!ingredients.length || !bun.name)}>
                 Оформить заказ
             </Button>
             {modalState.visible && <Modal width={720} height={720} onClose={handleCloseModal}><OrderDetails/></Modal>}

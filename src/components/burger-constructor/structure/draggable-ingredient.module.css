@@ -1,0 +1,16 @@
+.item {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex: 1;
+    width: 535px;
+}
+.drag {
+    position: absolute;
+    left: -25px;
+    top: 30px;
+}
+
+.dragging {
+    opacity: 0.5;
+}
