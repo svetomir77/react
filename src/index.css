@@ -40,3 +40,12 @@ ul {
   background: transparent;
 }
 .scroller::-webkit-scrollbar-thumb { height: 50px; background-color: #8585AD; border-radius: 3px;}
+
+.centerText {
+  text-align: center;
+  width: 100%;
+  margin: 100px;
+}
+.error {
+  color: red;
+}
