@@ -23,7 +23,7 @@ function DraggableIngredient (props) {
             <img src={ingredient.image} alt={ingredient.text}/>
             <span className={`${draggableIngredient.price} text text_type_digits-default p-1`}><span className={draggableIngredient.priceNum}>{ingredient.price}</span> <CurrencyIcon type="primary" /></span>
             <span className={`${draggableIngredient.text} text text_type_main-default`}>{ingredient.name}</span>
-            {count && <Counter count={count} size="default" />}
+            {count ? <Counter count={count} size="default" /> : ''}
         </li>
     );
 }
