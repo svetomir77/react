@@ -1,25 +1,20 @@
-import {CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-details.module.css';
-import {postOrder} from "../../utils/api";
-import React, {useContext, useEffect, useState} from "react";
-import {BurgerContext} from "../../services/user-context";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {placeOrder} from "../../services/slices/order-details";
+import {removeAllIngredients} from "../../services/slices/burger";
 
 function OrderDetails() {
-    const [loaderState, setLoaderState] = useState({
-        isLoading: false,
-        hasError: false,
-        data: {}
+    const dispatch = useDispatch();
+    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store) => {
+        return {
+            ingredients: store.burger.ingredients,
+            bun: store.burger.bun,
+            isLoading: store.order.isLoading,
+            hasError: store.order.hasError,
+            orderNum: store.order.num,
+        }
     });
-    const {data: result, isLoading, hasError} = loaderState;
-    const orderNum = result && result.order && result.order.number;
-
-    const {ingredients, bun, orderReducer} = useContext(BurgerContext);
-    const [orderState, orderDispatch] = orderReducer;
-
-    //устанваливаем state в компонент BurgerConstructor
-    useEffect(() => {
-        orderDispatch({type: 'order', orderNum});
-    }, [orderNum]);
 
     useEffect(() => {
         const ingredientIds = ingredients.map(item => item._id);
@@ -27,8 +22,14 @@ function OrderDetails() {
         const params = {
             ingredients: [bunId, ...ingredientIds, bunId]
         };
-        postOrder({loaderState, setLoaderState, params});
+        dispatch(placeOrder(params));
     }, []);
+
+    useEffect(() => {
+        if (orderNum) {
+            dispatch(removeAllIngredients());
+        }
+    }, [orderNum]);
 
     return (
         <>
@@ -41,9 +42,9 @@ function OrderDetails() {
                 !hasError &&
                 orderNum &&
                 <>
-                    <section className='text text_type_digits-large mt-30'>{orderNum}</section>
+                    <section className={`${styles.text} text text_type_digits-large mt-30`}>{orderNum}</section>
                     <section className='text text_type_main-medium mt-8'>идентификатор заказа</section>
-                    <section className={`${styles.check} mt-15 mb-15`}><CheckMarkIcon type="primary"/></section>
+                    <section className={`${styles.check} mt-15 mb-15`}></section>
                     <section className='text text_type_main-small bt-2'>Ваш заказ начали готовить</section>
                     <section className='text text_type_main-small text_color_inactive'>Дождитесь готовности на
                         орбитальной

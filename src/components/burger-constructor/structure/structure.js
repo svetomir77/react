@@ -1,24 +1,15 @@
-import React, {useContext} from "react";
-import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerStructure from "./structure.module.css";
-import {BurgerContext} from "../../../services/user-context";
-import generateUUID from "../../../utils/uuid";
+import {useSelector} from "react-redux";
+import BurgerDraggableIngredient from "./draggable-ingredient/draggable-ingredient";
 
-function BurgerStructure () {
-    const { ingredients } = useContext(BurgerContext);
-    const ingredientsWithUuid = generateUUID(ingredients, '_id');
+function BurgerStructure() {
+    const ingredients = useSelector(store => store.burger.ingredients);
+
     return (
-        ingredientsWithUuid.map((item, index)=>(
-            <li className={burgerStructure.item} key={item.uuid}>
-                <span className={burgerStructure.drag}><DragIcon type="primary"/></span>
-                <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                />
-            </li>
-        ))
-    );
+        ingredients.length > 0 ? ingredients.map((ingredient, index) => (
+                <BurgerDraggableIngredient key={ingredient.uuid} ingredient={ingredient}/>
+            )) :
+            <span className={`${burgerStructure.defaultText} text text_type_main-default`}>Добавьте ингридиенты</span>);
 }
 
 export default BurgerStructure;

@@ -1,62 +1,94 @@
-import React, {useContext, useMemo, useReducer} from 'react';
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from 'react';
+import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from "./burger-constructor.module.css";
 import BurgerStructure from "./structure/structure";
 import OrderButton from './order-button/order-button';
-import { IngredientsContext, BurgerContext } from "../../services/user-context";
+import {useDrop} from "react-dnd";
+import {useDispatch, useSelector} from "react-redux";
+import {addBun, addIngredient, changeIngredientPosition} from '../../services/slices/burger';
 
-function BurgerConstructor () {
-    const allIngredients = useContext(IngredientsContext);
+function BurgerConstructor() {
 
-    //временно, пока не сделан D&D - булка + случайные 5 ингридиентов
-    const bun = useMemo(() => allIngredients.find(item => item.type === 'bun'), [allIngredients]);
-    const shuffled = useMemo(() => allIngredients.sort(() => 0.5 - Math.random()), [allIngredients]);
-    const ingredients = useMemo(() => shuffled.filter(item => item.type !== 'bun').slice(0, 4), [shuffled]);
+    const dispatch = useDispatch();
+    const {bun} = useSelector(store => store.burger);
+    let overIngredient = null;
 
-    const initialState = { orderNum: null, total: 0 };
+    const onDrop = (ingredient, dragType) => {
+        overIngredient && overIngredient.classList.remove('over');
 
-    function reducer(state, action) {
-        switch (action.type) {
-            case "total":
-                let sum = 0;
-                const {ingredients, bun} = action;
-                if (ingredients && bun) {
-                    sum += (ingredients.reduce((acc, current) => acc + Number(current.price), 0)) || 0;
-                    sum += Number(bun.price) * 2;
-                }
-
-                return { ...state, total: sum };
-            case "order":
-                return { ...state, orderNum: action.orderNum };
-            default:
-                throw new Error(`Wrong type of action: ${action.type}`);
+        if (ingredient.type === 'bun') {
+            dispatch(addBun(ingredient));
+        } else {
+            const currentUuid = overIngredient && overIngredient.getAttribute('data-uuid');
+            if (dragType === 'ingredient') {
+                dispatch(addIngredient({ingredient, before: currentUuid}));
+            } else {
+                dispatch(changeIngredientPosition({ingredient, before: currentUuid}));
+            }
         }
     }
-    const orderReducer = useReducer(reducer, initialState);
+
+    const onHover = (ingredient, monitor) => {
+        const position = monitor.getClientOffset();
+        const targetElements = document.elementsFromPoint(position.x, position.y);
+        const [currentTarget] = targetElements.filter(el => el.tagName === 'LI');
+        const [isBottom] = targetElements.filter(el => el.classList.contains('constructor-element_pos_bottom'));
+
+        if (currentTarget) {
+            overIngredient && overIngredient.parentElement.classList.remove('over');
+            const currentUuid = currentTarget.getAttribute('data-uuid');
+            const prevUuid = overIngredient && overIngredient.getAttribute('data-uuid');
+
+            if (prevUuid !== currentUuid) {
+                overIngredient && overIngredient.classList.remove('over');
+                currentTarget.classList.add('over');
+                overIngredient = currentTarget;
+            }
+        } else if (isBottom) {
+            overIngredient && overIngredient.classList.remove('over');
+            overIngredient = null;
+        }
+    }
+
+    const [{isHover}, dropTarget] = useDrop({
+        accept: ['ingredient', 'burgerIngredient'],
+        drop(item, monitor) {
+            onDrop(item, monitor.getItemType());
+        },
+        hover(item, monitor) {
+            if (item.type !== 'bun') {
+                onHover(item, monitor);
+            }
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
 
     return (
-        <BurgerContext.Provider value={{ingredients, bun, orderReducer}}>
-        <section className={burgerConstructor.main}>
-            <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${bun.name} (верх)`}
-                price={bun.price}
-                thumbnail={bun.image}
-            />
-            <section className={`${burgerConstructor.scrollWrap} scroller`}>
-                <BurgerStructure/>
-            </section>
-            <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={`${bun.name} (низ)`}
-                price={bun.price}
-                thumbnail={bun.image}
-            />
+        <section className={`${burgerConstructor.main}`}>
+            <div className={`${burgerConstructor.dropTarget} ${isHover ? burgerConstructor.dropHover : ''}`}
+                 ref={dropTarget}>
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={`${bun.name} (верх)`}
+                    price={bun.price}
+                    thumbnail={bun.image}
+                />
+                <section className={`${burgerConstructor.scrollWrap} scroller`}>
+                    <BurgerStructure/>
+                </section>
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text={`${bun.name} (низ)`}
+                    price={bun.price}
+                    thumbnail={bun.image}
+                />
+            </div>
             <OrderButton/>
         </section>
-        </BurgerContext.Provider>
     )
 }
 

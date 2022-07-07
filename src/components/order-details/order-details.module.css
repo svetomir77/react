@@ -1,4 +1,9 @@
-.check svg {
-    width: 120px;
-    height: 120px;
+.check {
+    width: 107px;
+    height: 102px;
+    background: url('../../images/check.svg');
+}
+
+.text {
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
 }
