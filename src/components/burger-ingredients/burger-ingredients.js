@@ -1,13 +1,12 @@
-import React, {useState, useMemo, useContext, useRef, useEffect} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import burgerIngredients from "./burger-ingredients.module.css";
 import TabBar from './tab-bar/tab-bar';
 import IngredientSection from "./section/section";
 
-function BurgerIngredients () {
+function BurgerIngredients() {
     const scrollContainerRef = useRef();
     const [currentTab, setCurrentTab] = useState('bun');
-    let headers;
 
     const getClosestTabContainer = (containerBox, headers) => {
         const positions = [];
@@ -19,7 +18,8 @@ function BurgerIngredients () {
             if (delta < closest) {
                 closest = delta;
                 activeTab = header.id;
-            };
+            }
+
         });
         return activeTab;
     }
@@ -32,7 +32,7 @@ function BurgerIngredients () {
     }
 
     useEffect(function () {
-        headers = Array.from(scrollContainerRef.current.querySelectorAll('h2'));
+        const headers = Array.from(scrollContainerRef.current.querySelectorAll('h2'));
         const onScrollEvent = listenScrollEvent.bind(this, headers);
         scrollContainerRef.current.addEventListener("scroll", onScrollEvent);
         return () => {
@@ -52,14 +52,14 @@ function BurgerIngredients () {
 
     return (
         <div className={burgerIngredients.main}>
-        <section>
-            <TabBar onTabClick={onTabClick} currentTab={currentTab}/>
-        </section>
-        <section className={`${burgerIngredients.scrollWrap} scroller`} ref={scrollContainerRef}>
-            <IngredientSection id='bun' ingredients={buns} title='Булки'/>
-            <IngredientSection id='sauce' ingredients={sauce} title='Соусы'/>
-            <IngredientSection id='main' ingredients={main} title='Начинки'/>
-        </section>
+            <section>
+                <TabBar onTabClick={onTabClick} currentTab={currentTab}/>
+            </section>
+            <section className={`${burgerIngredients.scrollWrap} scroller`} ref={scrollContainerRef}>
+                <IngredientSection id='bun' ingredients={buns} title='Булки'/>
+                <IngredientSection id='sauce' ingredients={sauce} title='Соусы'/>
+                <IngredientSection id='main' ingredients={main} title='Начинки'/>
+            </section>
         </div>
     )
 }

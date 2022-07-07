@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import addUUID from "../../utils/uuid";
 
 const initialState = {
@@ -19,7 +19,7 @@ const burgerSlice = createSlice({
             const beforeIndex = state.ingredients.findIndex(item => item.uuid === before);
             const burgerIngredient = addUUID(state.ingredients, {...ingredient}, '_id');
 
-            if(beforeIndex >= 0) {
+            if (beforeIndex >= 0) {
                 state.ingredients.splice(beforeIndex, 0, burgerIngredient);
             } else {
                 state.ingredients.push(burgerIngredient);

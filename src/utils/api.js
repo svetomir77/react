@@ -23,4 +23,4 @@ function postOrder(params) {
     return apiFetch(ORDER_URL, config);
 }
 
-export { loadIngredients, postOrder };
+export {loadIngredients, postOrder};

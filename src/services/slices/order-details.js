@@ -3,7 +3,7 @@ import {postOrder} from "../../utils/api";
 
 export const placeOrder = createAsyncThunk(
     'order/place',
-    async (params, { rejectWithValue }) => {
+    async (params, {rejectWithValue}) => {
         try {
             const response = await postOrder(params);
             return response.order.number;

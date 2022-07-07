@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './report_web_vitals';
 import thunk from 'redux-thunk';
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider} from "react-redux";
@@ -12,19 +12,19 @@ import {Provider} from "react-redux";
 const store = configureStore({
     reducer: rootReducer,
     middleware: [thunk],
-    devTools: true,
+    devTools: process.env.NODE_ENV === 'development',
 });
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-      <Provider store={store}>
-          <App />
-      </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </React.StrictMode>
 );
 
 const modalContainer = document.createElement('div');

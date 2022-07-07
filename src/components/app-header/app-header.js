@@ -1,19 +1,19 @@
 import React from "react";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeader from "./app-header.module.css";
 import HeaderMenu from "./menu/menu";
 import HeaderMenuItem from "./menu/item/item";
 import HeaderMenuItemText from "./menu/item/text/text";
 
-function AppHeader () {
+function AppHeader() {
     return (
         <header className={`${appHeader.main} p-4`}>
             <HeaderMenu>
                 <HeaderMenuItem>
-                    <BurgerIcon type="primary" /> <HeaderMenuItemText>Конструктор</HeaderMenuItemText>
+                    <BurgerIcon type="primary"/> <HeaderMenuItemText>Конструктор</HeaderMenuItemText>
                 </HeaderMenuItem>
                 <HeaderMenuItem>
-                    <ListIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
+                    <ListIcon type="secondary"/> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
                 </HeaderMenuItem>
             </HeaderMenu>
             <section className={appHeader.logo}>
@@ -21,7 +21,7 @@ function AppHeader () {
             </section>
             <HeaderMenu className={appHeader.account}>
                 <HeaderMenuItem>
-                    <ProfileIcon type="secondary" /> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
+                    <ProfileIcon type="secondary"/> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
                 </HeaderMenuItem>
             </HeaderMenu>
         </header>

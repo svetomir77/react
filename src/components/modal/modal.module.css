@@ -1,5 +1,5 @@
 .container {
-    position:fixed;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +10,7 @@
     z-index: 30001;
     pointer-events: none;
 }
+
 .window {
     background: #1C1C21;
     border: 1px solid rgba(76, 76, 255, 0.2);
@@ -18,12 +19,14 @@
     position: relative;
     pointer-events: all;
 }
+
 .closeIcon {
     position: absolute;
     right: 0px;
     top: 0px;
     cursor: pointer;
 }
+
 .body {
     flex: 1;
     display: flex;

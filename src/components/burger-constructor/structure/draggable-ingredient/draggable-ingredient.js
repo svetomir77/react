@@ -2,11 +2,11 @@ import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger
 import {useDrag} from "react-dnd";
 import {useDispatch} from "react-redux";
 import burgerDraggableIngredient from "./draggable-ingredient.module.css";
-import {removeIngredient} from "../../../services/slices/burger";
-import ingredientTypes from "../../../utils/ingredient-types";
+import {removeIngredient} from "../../../../services/slices/burger";
+import ingredientTypes from "../../../../utils/ingredient-types";
 
-function BurgerDraggableIngredient (props) {
-    const {ingredient } = props;
+function BurgerDraggableIngredient(props) {
+    const {ingredient} = props;
     const dispatch = useDispatch();
     const onClose = (uuid) => {
         dispatch(removeIngredient(uuid));
@@ -21,7 +21,8 @@ function BurgerDraggableIngredient (props) {
     });
 
     return (
-        <li className={`${burgerDraggableIngredient.item} ${isDrag ? burgerDraggableIngredient.dragging : ''}`} ref={dragRef} data-uuid={ingredient.uuid}>
+        <li className={`${burgerDraggableIngredient.item} ${isDrag ? burgerDraggableIngredient.dragging : ''}`}
+            ref={dragRef} data-uuid={ingredient.uuid}>
             <span className={burgerDraggableIngredient.drag}><DragIcon type="primary"/></span>
             <ConstructorElement
                 text={ingredient.name}

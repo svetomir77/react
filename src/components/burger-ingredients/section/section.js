@@ -12,6 +12,7 @@ function IngredientSection({id, ingredients, title}) {
         </section>
     )
 }
+
 IngredientSection.ingredientsTypes = {
     id: PropTypes.string.isRequired,
     ingredients: ingredientsTypes,

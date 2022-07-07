@@ -5,6 +5,7 @@
     flex: 1;
     width: 535px;
 }
+
 .drag {
     position: absolute;
     left: -25px;

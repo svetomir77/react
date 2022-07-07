@@ -17,7 +17,7 @@ const addUUID = (arr, item, id) => {
             }
         }
     });
-    item.uuid = `${item[id]}_${count+1}`;
+    item.uuid = `${item[id]}_${count + 1}`;
 
     return item;
 }

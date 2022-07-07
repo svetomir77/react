@@ -1,12 +1,13 @@
 import React from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-const TabBar = ({ currentTab, onTabClick }) => {
+
+const TabBar = ({currentTab, onTabClick}) => {
     const onClick = (current) => {
         onTabClick(current);
     }
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{display: 'flex'}}>
             <Tab value="bun" active={currentTab === 'bun'} onClick={onClick}>
                 Булки
             </Tab>
