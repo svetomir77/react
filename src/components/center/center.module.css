@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.container:global( > form) {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+}

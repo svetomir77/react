@@ -6,6 +6,25 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+html, body, #root {
+    height: 100%;
+}
+
+a:-webkit-any-link {
+    color: inherit;
+    cursor: inherit;
+    text-decoration: none;
+}
+
+.page {
+    background-color: #131316;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -25,6 +44,10 @@ code {
 ul {
     margin: 0px;
     padding: 0px;
+}
+
+.input__container > div.input {
+    width: 480px;
 }
 
 .constructor-element {

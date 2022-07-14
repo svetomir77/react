@@ -7,36 +7,43 @@ import styles from './app.module.css';
 import {fetchIngredients} from "../../services/slices/ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import {HomePage} from "../../pages/home/home";
+import LoginPage from "../../pages/login/login";
+import RegisterPage from "../../pages/register/register";
+import IngredientDetailsPage from "../../pages/ingredient-details/ingredient-details";
+import ProfilePage from "../../pages/profile/profile";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password/reset-password";
 
 
 function App() {
-    const dispatch = useDispatch();
-    const {items: ingredients, isLoading, hasError} = useSelector(store => store.ingredients);
-    useEffect(() => {
-        dispatch(fetchIngredients());
-    }, []);
-
     return (
-        <div className={styles.app}>
-            <AppHeader/>
-            <main className={styles.main}>
-                <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
-                <DndProvider backend={HTML5Backend}>
-                    <section className={styles.container}>
-                        {isLoading && <div className="centerText">Загрузка...</div>}
-                        {hasError && <div className="centerText error">{hasError}</div>}
-                        {!isLoading &&
-                        !hasError &&
-                        ingredients.length &&
-                        <>
-                            <BurgerIngredients/>
-                            <BurgerConstructor/>
-                        </>
-                        }
-                    </section>
-                </DndProvider>
-            </main>
-        </div>
+        <Router>
+            <Switch>
+                <Route path="/" exact={true}>
+                    <HomePage />
+                </Route>
+                <Route path="/login" exact={true}>
+                    <LoginPage />
+                </Route>
+                <Route path="/register" exact={true}>
+                    <RegisterPage />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPasswordPage />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPasswordPage />
+                </Route>
+                <Route path="/profile" exact={true}>
+                    <ProfilePage />
+                </Route>
+                <Route path="/ingredient-details/:id" exact={true}>
+                    <IngredientDetailsPage />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 

@@ -21,7 +21,7 @@ function AppHeader() {
             </section>
             <HeaderMenu className={appHeader.account}>
                 <HeaderMenuItem>
-                    <ProfileIcon type="secondary"/> <HeaderMenuItemText>Лента Заказов</HeaderMenuItemText>
+                    <ProfileIcon type="secondary"/> <HeaderMenuItemText>Личный Кабинет</HeaderMenuItemText>
                 </HeaderMenuItem>
             </HeaderMenu>
         </header>
