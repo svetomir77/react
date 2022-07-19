@@ -14,6 +14,10 @@ function RegisterPage() {
     const [logInData, setLogInData] = useState(initialData);
     const handleChange = useFieldChange(setLogInData);
 
+    const onClick = () => {
+
+    }
+
     return (
         <div className='page'>
             <AppHeader/>
@@ -46,7 +50,7 @@ function RegisterPage() {
                         <PasswordInput onChange={handleChange()} value={logInData.password} name={'password'}/>
                     </section>
                     <section className='mt-6 mb-20'>
-                        <Button type="primary" size="medium">
+                        <Button type="primary" size="medium" onClick={onClick}>
                             Зарегистрироваться
                         </Button>
                     </section>

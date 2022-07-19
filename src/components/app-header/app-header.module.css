@@ -7,6 +7,10 @@
     width: -moz-available;
 }
 
+.active {
+    color: #8585AD;
+}
+
 .logo {
     margin-left: 112px;
 }

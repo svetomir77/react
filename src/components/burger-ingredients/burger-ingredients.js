@@ -36,7 +36,7 @@ function BurgerIngredients() {
         const onScrollEvent = listenScrollEvent.bind(this, headers);
         scrollContainerRef.current.addEventListener("scroll", onScrollEvent);
         return () => {
-            scrollContainerRef.current.removeEventListener("scroll", onScrollEvent);
+            scrollContainerRef.current && scrollContainerRef.current.removeEventListener("scroll", onScrollEvent);
         }
     }, []);
 

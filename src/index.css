@@ -10,10 +10,15 @@ html, body, #root {
     height: 100%;
 }
 
-a:-webkit-any-link {
+a:-webkit-any-link{
     color: inherit;
-    cursor: inherit;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+a:hover, a:visited, a:link, a:active
+{
     text-decoration: none;
+    color: inherit;
 }
 
 .page {
@@ -22,7 +27,6 @@ a:-webkit-any-link {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: calc(10px + 2vmin);
     color: white;
 }
 
@@ -35,6 +39,10 @@ code {
     list-style: none;
     align-items: center;
     display: flex;
+    text-decoration: none;
+}
+.text_color_active {
+    color: #ffffff;
 }
 
 .li-menu-item > text {

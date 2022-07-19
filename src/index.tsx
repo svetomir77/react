@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './report_web_vitals';
@@ -8,6 +9,7 @@ import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider} from "react-redux";
+
 
 const store = configureStore({
     reducer: rootReducer,
@@ -20,11 +22,13 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
+    <Router>
     <React.StrictMode>
         <Provider store={store}>
             <App/>
         </Provider>
     </React.StrictMode>
+    </Router>
 );
 
 const modalContainer = document.createElement('div');
