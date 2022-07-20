@@ -8,6 +8,7 @@ import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfileOrdersPage from "../../pages/profile/orders/orders";
 import FeedPage from "../../pages/feed/feed";
+import {ProtectedRoute} from '../protected-route';
 
 
 function App() {
@@ -28,13 +29,13 @@ function App() {
             <Route path="/reset-password" exact={true}>
                 <ResetPasswordPage/>
             </Route>
-            <Route path="/profile" exact={true}>
+            <ProtectedRoute path="/profile" exact={true}>
                 <ProfilePage/>
-            </Route>
-            <Route path="/profile/orders" exact={true}>
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile/orders" exact={true}>
                 <ProfileOrdersPage/>
-            </Route>
-            <Route path="/ingredient-details/:id" exact={true}>
+            </ProtectedRoute>
+            <Route path="/ingredients/:id" exact={true}>
                 <IngredientDetailsPage/>
             </Route>
             <Route path="/feed" exact={true}>

@@ -9,12 +9,12 @@ import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider} from "react-redux";
-
+const isProductionEnv = process.env.NODE_ENV === 'production';
 
 const store = configureStore({
     reducer: rootReducer,
     middleware: [thunk],
-    devTools: process.env.NODE_ENV === 'development',
+    devTools: !isProductionEnv,
 });
 
 const root = ReactDOM.createRoot(
@@ -22,13 +22,15 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <Router>
-    <React.StrictMode>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </React.StrictMode>
-    </Router>
+    <Provider store={store}>
+        <Router>
+            {(isProductionEnv && (
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+            )) || <App />}
+        </Router>
+    </Provider>
 );
 
 const modalContainer = document.createElement('div');

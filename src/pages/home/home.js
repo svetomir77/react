@@ -16,25 +16,25 @@ export const HomePage = () => {
     }, []);
 
     return (
-    <div className='page'>
-        <AppHeader/>
-        <main className={styles.main}>
-            <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
-            <DndProvider backend={HTML5Backend}>
-                <section className={styles.container}>
-                    {isLoading && <div className="centerText">Загрузка...</div>}
-                    {hasError && <div className="centerText error">{hasError}</div>}
-                    {!isLoading &&
-                    !hasError &&
-                    ingredients.length &&
-                    <>
-                        <BurgerIngredients/>
-                        <BurgerConstructor/>
-                    </>
-                    }
-                </section>
-            </DndProvider>
-        </main>
-    </div>
+        <div className='page'>
+            <AppHeader/>
+            <main className={styles.main}>
+                <h1 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h1>
+                <DndProvider backend={HTML5Backend}>
+                    <section className={styles.container}>
+                        {isLoading && <div className="centerText">Загрузка...</div>}
+                        {hasError && <div className="centerText error">{hasError}</div>}
+                        {!isLoading &&
+                        !hasError &&
+                        ingredients.length &&
+                        <>
+                            <BurgerIngredients/>
+                            <BurgerConstructor/>
+                        </>
+                        }
+                    </section>
+                </DndProvider>
+            </main>
+        </div>
     );
 }

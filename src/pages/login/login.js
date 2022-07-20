@@ -2,23 +2,43 @@ import React, {useState} from 'react';
 import Center from "../../components/center/center";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
-import {Link} from "react-router-dom";
+import {Link, Redirect, useLocation} from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
+import {useAuth} from "../../services/auth";
+import {clearMessage} from "../../services/slices/auth";
+import {useDispatch} from "react-redux";
 
 function LoginPage() {
     const initialData = {
         email: "",
         password: "",
     };
-
+    const dispatch = useDispatch();
     const [logInData, setLogInData] = useState(initialData);
+    const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
+    let {message, signIn, logged} = useAuth();
+    const {state} = useLocation();
+
+    if (logged) {
+        return (
+            <Redirect to={state?.from || '/'}/>
+        );
+    }
+    const onSubmit = (e) => {
+        dispatch(clearMessage());
+        setActionMade(true);
+        e.preventDefault();
+        if (logInData.email && logInData.password) {
+            signIn(logInData);
+        }
+    }
 
     return (
         <div className='page'>
             <AppHeader/>
             <Center>
-                <form>
+                <form onSubmit={onSubmit}>
                     <p className="text text_type_main-medium label">
                         Вход
                     </p>
@@ -35,12 +55,13 @@ function LoginPage() {
                     <section className='mt-6'>
                         <PasswordInput onChange={handleChange()} value={logInData.password} name={'password'}/>
                     </section>
-                    <section className='mt-6 mb-20'>
+                    <section className='mt-6'>
                         <Button type="primary" size="medium">
                             Войти
                         </Button>
                     </section>
-                    <section className='mb-4 text text_type_main-default'>
+                    {actionMade && message && <section className='error mt-6'>{message}</section>}
+                    <section className='mb-4 mt-20 text text_type_main-default'>
                         <label className='text_color_inactive'>Вы - новый пользователь?</label> <Link
                         to='/register'>Зарегистрироваться</Link>
                     </section>

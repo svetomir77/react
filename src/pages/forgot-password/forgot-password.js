@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Center from "../../components/center/center";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
-import {Link, useHistory} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
-import {useDispatch, useSelector} from "react-redux";
-import {passwordResetRequest} from "../../services/slices/profile";
+import {useDispatch} from "react-redux";
+import {clearMessage, passwordResetRequest} from "../../services/slices/auth";
+import {useAuth} from "../../services/auth";
 
 function ForgotPasswordPage() {
     const initialData = {
@@ -15,28 +16,31 @@ function ForgotPasswordPage() {
     const dispatch = useDispatch();
 
     const [logInData, setLogInData] = useState(initialData);
+    const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
 
-    const onClick = () => {
+    const onClick = (e) => {
+        e.preventDefault();
+        dispatch(clearMessage());
+        setActionMade(true);
+
         const params = {
             email: logInData.email
         };
         dispatch(passwordResetRequest(params));
     }
 
-    const message = useSelector((store) => {
-        return store.profile.message;
-    });
-    const history = useHistory();
+    const {message, logged} = useAuth();
 
-    useEffect(() => {
-        switch(message) {
-            case 'Reset email sent':
-                return history.push({ pathname: '/reset-password' });
-            case 'Password successfully reset':
-                return history.replace({ pathname: '/login' });
-        }
-    }, [message]);
+    if (logged) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/'
+                }}
+            />
+        );
+    }
 
     return (
         <div className='page'>
@@ -56,12 +60,13 @@ function ForgotPasswordPage() {
                             size={'default'}
                         />
                     </section>
-                    <section className='mt-6 mb-20'>
+                    <section className='mt-6'>
                         <Button type="primary" size="medium" onClick={onClick}>
                             Восстановить
                         </Button>
                     </section>
-                    <section className='mb-4 text text_type_main-default'>
+                    {actionMade && message && <section className='error mt-6'>{message}</section>}
+                    <section className='mb-4 mt-20 text text_type_main-default'>
                         <label className='text_color_inactive'>Вспомнили пароль?</label> <Link
                         to='/login'>Войти</Link>
                     </section>

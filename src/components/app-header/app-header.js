@@ -25,10 +25,12 @@ function AppHeader() {
         <header className={`${appHeader.main} p-4`}>
             <HeaderMenu>
                 <NavLink to='/' className='p-5 li-menu-item' isActive={setActive}>
-                    <BurgerIcon type={isActiveHome ? 'primary': 'secondary'}/> <HeaderMenuItemText isActive={isActiveHome}>Конструктор</HeaderMenuItemText>
+                    <BurgerIcon type={isActiveHome ? 'primary' : 'secondary'}/> <HeaderMenuItemText
+                    isActive={isActiveHome}>Конструктор</HeaderMenuItemText>
                 </NavLink>
-                <NavLink to='/feed'  className='p-5 li-menu-item' isActive={setActive}>
-                    <ListIcon type={isActiveOrderList ? 'primary': 'secondary'}/> <HeaderMenuItemText isActive={isActiveOrderList}>Лента Заказов</HeaderMenuItemText>
+                <NavLink to='/feed' className='p-5 li-menu-item' isActive={setActive}>
+                    <ListIcon type={isActiveOrderList ? 'primary' : 'secondary'}/> <HeaderMenuItemText
+                    isActive={isActiveOrderList}>Лента Заказов</HeaderMenuItemText>
                 </NavLink>
             </HeaderMenu>
             <section className={appHeader.logo}>
@@ -36,7 +38,8 @@ function AppHeader() {
             </section>
             <HeaderMenu className={appHeader.account}>
                 <NavLink to='/profile' className='p-5 li-menu-item' isActive={setActive}>
-                    <ProfileIcon type={isActiveProfile ? 'primary': 'secondary'}/> <HeaderMenuItemText isActive={isActiveProfile}>Личный Кабинет</HeaderMenuItemText>
+                    <ProfileIcon type={isActiveProfile ? 'primary' : 'secondary'}/> <HeaderMenuItemText
+                    isActive={isActiveProfile}>Личный Кабинет</HeaderMenuItemText>
                 </NavLink>
             </HeaderMenu>
         </header>

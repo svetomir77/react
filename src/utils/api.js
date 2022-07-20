@@ -7,8 +7,9 @@ const LOGIN_URL = `${API_URL}/auth/login`;
 const REGISTER_URL = `${API_URL}/auth/register`;
 const LOGOUT_URL = `${API_URL}/auth/logout`;
 const TOKEN_URL = `${API_URL}/auth/token`;
+const USER_URL = `${API_URL}/auth/user`;
 
-function getPostCfg (params) {
+function getPostCfg(params) {
     return {
         method: 'POST',
         headers: {
@@ -17,6 +18,26 @@ function getPostCfg (params) {
         },
         body: JSON.stringify(params)
     }
+}
+
+function getAuthCfg(method, params) {
+    let cfg = {
+        method: method,
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: (params.token || '')
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+    }
+
+    if (params.body) {
+        cfg.body = JSON.stringify(params.body);
+    }
+
+    return cfg;
 }
 
 function apiFetch(url, config) {
@@ -49,7 +70,7 @@ export function postLogout(params) {
     return apiFetch(LOGOUT_URL, getPostCfg(params));
 }
 
-export function postRegister(params) {
+export function createUser(params) {
     return apiFetch(REGISTER_URL, getPostCfg(params));
 }
 
@@ -57,3 +78,10 @@ export function postToken(params) {
     return apiFetch(TOKEN_URL, getPostCfg(params));
 }
 
+export function getUserRequest(params) {
+    return apiFetch(USER_URL, getAuthCfg('GET', params));
+}
+
+export function updateUser(params) {
+    return apiFetch(USER_URL, getAuthCfg('PATCH', params));
+}

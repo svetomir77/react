@@ -12,10 +12,12 @@ function IngredientList(props) {
 
     const handleOpenModal = (ingredient, e) => {
         dispatch(addIngredient(ingredient));
+        window.history.replaceState(null, ingredient.name, `/ingredients/${ingredient._id}`)
         e.stopPropagation();
     }
     const handleCloseModal = () => {
         dispatch(removeIngredient());
+        window.history.replaceState(null, null, `/`)
     }
 
     return (

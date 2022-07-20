@@ -5,7 +5,7 @@ function Center(props) {
     const {children} = props;
 
     return (
-        <section className={styles.container}>
+        <section className={`${styles.container} ${props.className ? props.className : ''}`}>
             {children}
         </section>
     );
@@ -13,6 +13,7 @@ function Center(props) {
 
 Center.propTypes = {
     children: PropTypes.any.isRequired,
+    className: PropTypes.string,
 }
 
 export default Center;

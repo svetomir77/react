@@ -5,6 +5,8 @@ import Modal from '../../modal/modal';
 import OrderDetails from '../../order-details/order-details';
 import {useDispatch, useSelector} from "react-redux";
 import {getTotal} from "../../../services/slices/order-details";
+import {useAuth} from "../../../services/auth";
+import {useHistory} from "react-router-dom";
 
 function OrderButton() {
     const [modalState, setModalState] = useState({
@@ -18,12 +20,21 @@ function OrderButton() {
             total: store.order.total,
         }
     });
+
     useEffect(() => {
         dispatch(getTotal({bun, ingredients}));
-    }, [bun, ingredients]);
+    }, [bun, ingredients, dispatch]);
+
+    const {logged} = useAuth();
+
+    const history = useHistory();
 
     const handleOpenModal = () => {
-        setModalState({...modalState, visible: true});
+        if (logged) {
+            setModalState({...modalState, visible: true});
+        } else {
+            history.push('/login');
+        }
     }
     const handleCloseModal = () => {
         setModalState({...modalState, visible: false});
