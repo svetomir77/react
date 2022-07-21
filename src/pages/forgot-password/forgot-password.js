@@ -18,7 +18,7 @@ function ForgotPasswordPage() {
     const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
 
-    const onClick = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         dispatch(clearMessage());
         setActionMade(true);
@@ -29,7 +29,7 @@ function ForgotPasswordPage() {
         dispatch(passwordResetRequest(params));
     }
 
-    const {message, logged} = useAuth();
+    const {hasError, message, logged} = useAuth();
 
     if (logged) {
         return (
@@ -43,7 +43,7 @@ function ForgotPasswordPage() {
 
     return (
         <Center>
-            <form>
+            <form onSubmit={onSubmit}>
                 <p className="text text_type_main-medium label">
                     Восстановление пароля
                 </p>
@@ -58,11 +58,11 @@ function ForgotPasswordPage() {
                     />
                 </section>
                 <section className='mt-6'>
-                    <Button type="primary" size="medium" onClick={onClick}>
+                    <Button type="primary" size="medium">
                         Восстановить
                     </Button>
                 </section>
-                {actionMade && message && <section className='error mt-6'>{message}</section>}
+                {actionMade && hasError && message && <section className='error mt-6'>{message}</section>}
                 <section className='mb-4 mt-20 text text_type_main-default'>
                     <label className='text_color_inactive'>Вспомнили пароль?</label> <Link
                     to='/login'>Войти</Link>

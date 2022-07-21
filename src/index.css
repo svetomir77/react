@@ -103,6 +103,8 @@ ul {
 
 .error {
     color: red;
+    justify-content: center;
+    display: flex;
 }
 
 img[src=""] {

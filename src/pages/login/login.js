@@ -16,7 +16,7 @@ function LoginPage() {
     const [logInData, setLogInData] = useState(initialData);
     const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
-    let {message, signIn, logged} = useAuth();
+    let {hasError, message, signIn, logged} = useAuth();
     const {state} = useLocation();
 
     if (logged) {
@@ -57,7 +57,7 @@ function LoginPage() {
                         Войти
                     </Button>
                 </section>
-                {actionMade && message && <section className='error mt-6'>{message}</section>}
+                {actionMade && hasError && message && <section className='error mt-6'>{message}</section>}
                 <section className='mb-4 mt-20 text text_type_main-default'>
                     <label className='text_color_inactive'>Вы - новый пользователь?</label> <Link
                     to='/register'>Зарегистрироваться</Link>

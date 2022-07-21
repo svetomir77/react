@@ -40,10 +40,21 @@ function getAuthCfg(method, params) {
     return cfg;
 }
 
+async function checkResponse(res) {
+    const isJson = res.headers.get('content-type')?.includes('application/json');
+    const data = isJson ? await res.json() : null;
+
+    if (!res.ok) {
+        // получаем ошибку из body или response status по умолчанию
+        const error = (data && data.message) || res.status;
+        return Promise.reject(error);
+    }
+    return data;
+}
+
 function apiFetch(url, config) {
     return fetch(url, config || {})
-        .then((res) => res.json())
-        .then((res) => res);
+        .then(checkResponse);
 }
 
 export function loadIngredients() {

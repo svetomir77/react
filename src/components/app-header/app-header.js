@@ -6,13 +6,17 @@ import HeaderMenuItemText from "./menu/item/text/text";
 import {NavLink} from "react-router-dom";
 
 function AppHeader() {
-    const [currentMenu, setCurrentMenu] = useState('');
-    
+    let activeMenu = '';
+    const [currentMenu, setCurrentMenu] = useState(activeMenu);
     const setActive = (route) => {
         if (route) {
-            setCurrentMenu(route.path.replace('\\/', ''));
+            activeMenu = route.path.replace('\\/', '');
         }
     }
+
+    useEffect(() => {
+        setCurrentMenu(activeMenu);
+    }, [activeMenu, setActive]);
 
     const isActiveProfile = currentMenu === 'profile';
     const isActiveHome = currentMenu === '';
@@ -31,7 +35,9 @@ function AppHeader() {
                 </NavLink>
             </HeaderMenu>
             <section className={appHeader.logo}>
-                <Logo/>
+                <NavLink to='/'>
+                    <Logo/>
+                </NavLink>
             </section>
             <HeaderMenu className={appHeader.account}>
                 <NavLink to='/profile' className='p-5 li-menu-item' isActive={setActive}>

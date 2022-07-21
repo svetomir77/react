@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom";
 
 
 export function useAuth() {
-    let {accessToken, message} = useSelector(store => store.auth);
+    let {accessToken, message, hasError} = useSelector(store => store.auth);
     const dispatch = useDispatch();
     const logged = Boolean(getCookie('token'));
 
@@ -60,6 +60,7 @@ export function useAuth() {
     return {
         logged,
         message,
+        hasError,
         getUser,
         signIn,
         signOut

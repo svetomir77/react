@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {userUpdate} from "../../services/slices/auth";
 
 function ProfilePage() {
-    let {user, accessToken, message} = useSelector((store) => store.auth);
+    let {hasError, user, accessToken, message} = useSelector((store) => store.auth);
     const [isFormDirty, setIsFormDirty] = useState(false);
     const initialData = {...user, password: ''} || {
         name: "",
@@ -37,7 +37,7 @@ function ProfilePage() {
         setProfileData({...user, password: ''});
     }
 
-    const onSave = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
         const params = {token: accessToken, body: profileData};
         dispatch(userUpdate(params));
@@ -61,7 +61,7 @@ function ProfilePage() {
                 </section>
             </section>
             <section className={`${styles.colRight}`}>
-                <form>
+                <form onSubmit={onSubmit}>
                     <section className='mt-6'>
                         <Input
                             type={'text'}
@@ -97,11 +97,10 @@ function ProfilePage() {
                     </section>
                     {isFormDirty &&
                     <section className={`${styles.buttons} mt-10`}>
-                        <Button onClick={onCancel}>Отмена</Button><span className='mr-6'></span><Button
-                        onClick={onSave}>Сохранить</Button>
+                        <Button>Сохранить</Button><Button onClick={onCancel}>Отмена</Button><span className='mr-6'></span>
                     </section>
                     }
-                    {message && <section className='error mt-6'>{message}</section>}
+                    {hasError && message && <section className='error mt-6'>{message}</section>}
                 </form>
             </section>
         </section>

@@ -19,7 +19,7 @@ export const authLogin = createAsyncThunk(
             setCookie('token', response.refreshToken || '');
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -33,7 +33,7 @@ export const authLogout = createAsyncThunk(
             deleteCookie('token');
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -47,7 +47,7 @@ export const authToken = createAsyncThunk(
             setCookie('token', response.refreshToken || '');
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -59,7 +59,7 @@ export const passwordResetRequest = createAsyncThunk(
             const response = await postPasswordResetRequest(params);
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -71,7 +71,7 @@ export const passwordResetUpdate = createAsyncThunk(
             const response = await postPasswordResetUpdate(params);
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -83,7 +83,7 @@ export const userUpdate = createAsyncThunk(
             const response = await updateUser(params);
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -95,7 +95,7 @@ export const userCreate = createAsyncThunk(
             const response = await createUser(params);
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -107,7 +107,7 @@ export const getUserAccess = createAsyncThunk(
             const response = await getUserRequest(params);
             return response;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            return rejectWithValue(err);
         }
     }
 );
@@ -143,7 +143,8 @@ const fulfilledState = (state, action) => {
 }
 const rejectedState = (state, action) => {
     state.isLoading = false;
-    state.hasError = action.payload;
+    state.hasError = true;
+    state.message = action.payload;
 }
 
 const authSlice = createSlice({

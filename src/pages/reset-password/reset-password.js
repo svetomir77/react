@@ -17,10 +17,10 @@ function ResetPasswordPage() {
     const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
 
-    const {message, logged} = useAuth();
+    const {hasError, message, logged} = useAuth();
     const dispatch = useDispatch();
 
-    const onClick = (e) => {
+    const onSubmit = (e) => {
         dispatch(clearMessage());
         setActionMade(true);
         e.preventDefault();
@@ -46,7 +46,7 @@ function ResetPasswordPage() {
 
     return (
         <Center>
-            <form>
+            <form onSubmit={onSubmit}>
                 <p className="text text_type_main-medium label">
                     Восстановление пароля
                 </p>
@@ -66,11 +66,11 @@ function ResetPasswordPage() {
                     />
                 </section>
                 <section className='mt-6'>
-                    <Button type="primary" size="medium" onClick={onClick}>
+                    <Button type="primary" size="medium">
                         Сохранить
                     </Button>
                 </section>
-                {actionMade && message && <section className='error mt-6'>{message}</section>}
+                {actionMade && hasError && message && <section className='error mt-6'>{message}</section>}
                 <section className='mb-4 mt-20 text text_type_main-default'>
                     <label className='text_color_inactive'>Вспомнили пароль?</label> <Link
                     to='/register'>Войти</Link>
