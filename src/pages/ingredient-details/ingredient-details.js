@@ -1,7 +1,6 @@
 import Center from "../../components/center/center";
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import AppHeader from "../../components/app-header/app-header";
 import React, {useEffect} from "react";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import {fetchIngredients, selectIngredient} from "../../services/slices/ingredients";
@@ -24,17 +23,14 @@ function IngredientDetailsPage() {
     }, [ingredients, dispatch, id]);
 
     return (
-        <div className='page'>
-            <AppHeader/>
-            <Center className={styles.main}>
-                {isLoading && <div className="centerText">Загрузка...</div>}
-                {hasError && <div className="centerText error">{hasError}</div>}
-                {!isLoading &&
-                !hasError &&
-                ingredient &&
-                <IngredientDetails ingredient={ingredient}/>}
-            </Center>
-        </div>
+        <Center className={styles.main}>
+            {isLoading && <div className="centerText">Загрузка...</div>}
+            {hasError && <div className="centerText error">{hasError}</div>}
+            {!isLoading &&
+            !hasError &&
+            ingredient &&
+            <IngredientDetails ingredient={ingredient}/>}
+        </Center>
     );
 }
 

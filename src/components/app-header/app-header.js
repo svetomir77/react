@@ -6,14 +6,11 @@ import HeaderMenuItemText from "./menu/item/text/text";
 import {NavLink} from "react-router-dom";
 
 function AppHeader() {
-    let activeMenu = '';
-    const [currentMenu, setCurrentMenu] = useState(activeMenu);
-    useEffect(() => {
-        setCurrentMenu(activeMenu);
-    }, [activeMenu]);
+    const [currentMenu, setCurrentMenu] = useState('');
+    
     const setActive = (route) => {
         if (route) {
-            activeMenu = route.path.replace('\\/', '');
+            setCurrentMenu(route.path.replace('\\/', ''));
         }
     }
 
