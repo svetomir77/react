@@ -2,7 +2,7 @@ import styles from './ingredient-details.module.css';
 import ingredientTypes from "../../utils/ingredient-types";
 import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {addIngredient, removeIngredient} from "../../services/slices/burger";
+import {addIngredient, removeIngredient} from "../../services/slices/ingredient-details";
 
 function IngredientDetails({ingredient}) {
     const dispatch = useDispatch();

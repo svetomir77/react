@@ -20,7 +20,7 @@ function App() {
     const ingredient = location.state && location.state.ingredient;
     const history = useHistory();
     const back = e => {
-        e.stopPropagation();
+        e && e.stopPropagation();
         history.goBack();
     };
     return (
