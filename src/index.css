@@ -6,6 +6,29 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+html, body, #root {
+    height: 100%;
+}
+
+a:-webkit-any-link{
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+.page {
+    background-color: #131316;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -16,6 +39,10 @@ code {
     list-style: none;
     align-items: center;
     display: flex;
+    text-decoration: none;
+}
+.text_color_active {
+    color: #ffffff;
 }
 
 .li-menu-item > text {
@@ -25,6 +52,10 @@ code {
 ul {
     margin: 0px;
     padding: 0px;
+}
+
+.input__container > div.input {
+    width: 480px;
 }
 
 .constructor-element {
@@ -72,6 +103,8 @@ ul {
 
 .error {
     color: red;
+    justify-content: center;
+    display: flex;
 }
 
 img[src=""] {

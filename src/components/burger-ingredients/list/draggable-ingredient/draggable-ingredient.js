@@ -7,8 +7,9 @@ import ingredientTypes from "../../../../utils/ingredient-types";
 
 function DraggableIngredient(props) {
     const {ingredient, onClickCapture} = props;
-    const {ingredients} = useSelector(store => store.burger);
-    const count = ingredients.reduce((acc, current) => acc + (current._id === ingredient._id), 0);
+    const {ingredients, bun} = useSelector(store => store.burger);
+    const count = (ingredient.type === 'bun' && bun._id === ingredient._id) ? 2
+        : ingredients.reduce((acc, current) => acc + (current._id === ingredient._id), 0);
 
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',

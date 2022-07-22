@@ -1,0 +1,13 @@
+.main {
+    display: flex;
+    margin-right: 380px;
+    margin-top: 120px;
+}
+
+.colLeft {
+    width: 320px;
+}
+
+.colRight {
+    width: 480px;
+}

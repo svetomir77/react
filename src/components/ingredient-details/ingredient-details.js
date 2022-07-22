@@ -1,8 +1,19 @@
 import styles from './ingredient-details.module.css';
 import ingredientTypes from "../../utils/ingredient-types";
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {addIngredient, removeIngredient} from "../../services/slices/ingredient-details";
 
 function IngredientDetails({ingredient}) {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(addIngredient(ingredient));
+        return () => {
+            dispatch(removeIngredient());
+        }
+    }, []);
+
     return (
         <>
             <img src={ingredient.image_large} alt={ingredient.name}/>
