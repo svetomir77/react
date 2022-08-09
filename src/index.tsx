@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
-import App from './components/app/app';
+import {App} from './components/app/app';
 import reportWebVitals from './report_web_vitals';
 import thunk from 'redux-thunk';
 import {configureStore} from '@reduxjs/toolkit'
@@ -16,6 +16,8 @@ const store = configureStore({
     middleware: [thunk],
     devTools: !isProductionEnv,
 });
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
