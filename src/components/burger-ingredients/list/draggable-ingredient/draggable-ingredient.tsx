@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import draggableIngredient from "./draggable-ingredient.module.css";
-import {useDrag} from "react-dnd";
+import {DragSourceMonitor, useDrag} from "react-dnd";
 import {useSelector} from "react-redux";
 import {TBurgerIngredientProps, TIngredientUid} from "../../../../utils/types";
 
@@ -13,7 +13,7 @@ export const DraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) =>
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',
         item: ingredient,
-        collect: monitor => ({
+        collect: (monitor:DragSourceMonitor) => ({
             isDrag: monitor.isDragging()
         })
     });

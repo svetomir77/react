@@ -14,8 +14,7 @@ import {TIngredient} from "../../utils/types";
 
 export const BurgerConstructor:FC = () => {
   const dispatch = useDispatch();
-  // @ts-ignore
-  const { bun } = useSelector(store => store.burger);
+  const { bun } = useSelector((store:any) => store.burger);
   let overIngredient:Element | null;
   const onDrop = (ingredient:TIngredient, monitor:DropTargetMonitor) => {
     const dragType = monitor.getItemType();
@@ -64,7 +63,7 @@ export const BurgerConstructor:FC = () => {
         onHover(item, monitor);
       }
     },
-    collect: monitor => ({
+    collect: (monitor:DropTargetMonitor) => ({
       isHover: monitor.isOver()
     })
   });
