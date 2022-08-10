@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
-import App from './components/app/app';
+import {App} from './components/app/app';
 import reportWebVitals from './report_web_vitals';
 import thunk from 'redux-thunk';
 import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider} from "react-redux";
+
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
 const store = configureStore({
@@ -16,6 +17,8 @@ const store = configureStore({
     middleware: [thunk],
     devTools: !isProductionEnv,
 });
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -25,10 +28,10 @@ root.render(
     <Provider store={store}>
         <Router>
             {(isProductionEnv && (
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-            )) || <App />}
+                <React.StrictMode>
+                    <App/>
+                </React.StrictMode>
+            )) || <App/>}
         </Router>
     </Provider>
 );
