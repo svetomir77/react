@@ -4,7 +4,7 @@ import React, {FC, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {addIngredient, removeIngredient} from "../../services/slices/ingredient-details";
 
-export const IngredientDetails:FC<{ingredient:TIngredient}> = ({ingredient}) => {
+export const IngredientDetails: FC<{ ingredient: TIngredient }> = ({ingredient}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {

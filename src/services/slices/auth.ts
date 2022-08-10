@@ -14,7 +14,7 @@ import {TLogin, TToken, TUser} from "../../utils/types";
 
 export const authLogin = createAsyncThunk(
     'auth/login',
-    async (params:TLogin, {rejectWithValue}) => {
+    async (params: TLogin, {rejectWithValue}) => {
         try {
             const response = await postLogin(params);
             setCookie('token', response.refreshToken || '');
@@ -55,7 +55,7 @@ export const authToken = createAsyncThunk(
 
 export const passwordResetRequest = createAsyncThunk(
     'auth/passwordResetRequest',
-    async (params:Pick<TLogin,'email'>, {rejectWithValue}) => {
+    async (params: Pick<TLogin, 'email'>, {rejectWithValue}) => {
         try {
             const response = await postPasswordResetRequest(params);
             return response;
@@ -67,7 +67,7 @@ export const passwordResetRequest = createAsyncThunk(
 
 export const passwordResetUpdate = createAsyncThunk(
     'profile/passwordResetUpdate',
-    async (params: Pick<TLogin,'password'> & TToken, {rejectWithValue}) => {
+    async (params: Pick<TLogin, 'password'> & TToken, {rejectWithValue}) => {
         try {
             const response = await postPasswordResetUpdate(params);
             return response;
@@ -79,7 +79,7 @@ export const passwordResetUpdate = createAsyncThunk(
 
 export const userUpdate = createAsyncThunk(
     'auth/userUpdate',
-    async (params: TToken & { body: TUser}, {rejectWithValue}) => {
+    async (params: TToken & { body: TUser }, {rejectWithValue}) => {
         try {
             const response = await updateUser(params);
             return response;
@@ -91,7 +91,7 @@ export const userUpdate = createAsyncThunk(
 
 export const userCreate = createAsyncThunk(
     'auth/userCreate',
-    async (params:TUser, {rejectWithValue}) => {
+    async (params: TUser, {rejectWithValue}) => {
         try {
             const response = await createUser(params);
             return response;
@@ -103,7 +103,7 @@ export const userCreate = createAsyncThunk(
 
 export const getUserAccess = createAsyncThunk(
     'auth/getUser',
-    async (params:TToken, {rejectWithValue}) => {
+    async (params: TToken, {rejectWithValue}) => {
         try {
             const response = await getUserRequest(params);
             return response;
@@ -123,11 +123,11 @@ const initialState = {
     hasError: false,
 };
 
-const pendingState = (state:any) => {
+const pendingState = (state: any) => {
     state.isLoading = true;
     state.hasError = null;
 }
-const fulfilledState = (state:any, action:any) => {
+const fulfilledState = (state: any, action: any) => {
     state.message = action.payload.message || null;
 
     if (action.payload.user) {
@@ -142,7 +142,7 @@ const fulfilledState = (state:any, action:any) => {
     state.isLoading = false;
     state.hasError = null;
 }
-const rejectedState = (state:any, action:any) => {
+const rejectedState = (state: any, action: any) => {
     state.isLoading = false;
     state.hasError = true;
     state.message = action.payload;
@@ -152,7 +152,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        clearMessage(state:any, action) {
+        clearMessage(state: any, action) {
             state.message = '';
         }
     },

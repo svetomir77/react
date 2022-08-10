@@ -7,9 +7,10 @@ import {useDispatch} from "react-redux";
 import {clearMessage, passwordResetUpdate} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
 import {LocationState, TButton} from "../../utils/types";
-const Button:TButton = ButtonUI;
 
-export const ResetPasswordPage:FC = () => {
+const Button: TButton = ButtonUI;
+
+export const ResetPasswordPage: FC = () => {
     const initialData = {
         token: "",
         password: "",
@@ -22,7 +23,7 @@ export const ResetPasswordPage:FC = () => {
     const {hasError, message, logged} = useAuth();
     const dispatch = useDispatch();
 
-    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         // @ts-ignore
         dispatch(clearMessage());
         setActionMade(true);

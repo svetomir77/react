@@ -6,16 +6,16 @@ import {removeIngredient} from "../../../../services/slices/burger";
 import {TBurgerIngredientProps} from "../../../../utils/types";
 import {FC} from "react";
 
-export const BurgerDraggableIngredient:FC<TBurgerIngredientProps> = ({ingredient}) => {
+export const BurgerDraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) => {
     const dispatch = useDispatch();
-    const onClose = (uuid:string) => {
+    const onClose = (uuid: string) => {
         dispatch(removeIngredient(uuid));
     }
 
     const [{isDrag}, dragRef] = useDrag({
         type: 'burgerIngredient',
         item: ingredient,
-        collect: (monitor:DragSourceMonitor) => ({
+        collect: (monitor: DragSourceMonitor) => ({
             isDrag: monitor.isDragging(),
         })
     });

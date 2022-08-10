@@ -1,14 +1,14 @@
 import styles from './order-details.module.css';
 import React, {FC, useEffect} from "react";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {placeOrder} from "../../services/slices/order-details";
 import {removeAllIngredients} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
-import {AppDispatch, RootState} from "../../index";
+import {AppDispatch} from "../../index";
 
-export const OrderDetails:FC = () => {
+export const OrderDetails: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store:any) => {
+    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store: any) => {
         return {
             ingredients: store.burger.ingredients,
             bun: store.burger.bun,
@@ -19,7 +19,7 @@ export const OrderDetails:FC = () => {
     });
 
     useEffect(() => {
-        const ingredientIds = ingredients.map((item:TIngredient) => item._id);
+        const ingredientIds = ingredients.map((item: TIngredient) => item._id);
         const bunId = bun._id;
         const params = {
             ingredients: [bunId, ...ingredientIds, bunId]

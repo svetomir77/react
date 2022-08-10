@@ -7,9 +7,10 @@ import {useAuth} from "../../services/auth";
 import {clearMessage} from "../../services/slices/auth";
 import {useDispatch} from "react-redux";
 import {LocationState, TButton} from "../../utils/types";
-const Button:TButton = ButtonUI;
 
-export const LoginPage:FC = () => {
+const Button: TButton = ButtonUI;
+
+export const LoginPage: FC = () => {
     const initialData = {
         email: "",
         password: "",
@@ -27,7 +28,7 @@ export const LoginPage:FC = () => {
             <Redirect to={state?.from || '/'}/>
         );
     }
-    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         // @ts-ignore
         dispatch(clearMessage());
         setActionMade(true);

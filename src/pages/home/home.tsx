@@ -9,7 +9,7 @@ import {fetchIngredients} from "../../services/slices/ingredients";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-    const {items: ingredients, isLoading, hasError} = useSelector((store:any) => store.ingredients);
+    const {items: ingredients, isLoading, hasError} = useSelector((store: any) => store.ingredients);
     useEffect(() => {
         // @ts-ignore
         dispatch(fetchIngredients());

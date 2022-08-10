@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import {FC, ReactNode, SyntheticEvent, useEffect} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import {ModalOverlay} from './modal-overlay';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
@@ -12,14 +12,14 @@ type TModalProps = {
     width: number;
     height: number;
 }
-export const Modal:FC<TModalProps> = (props) => {
+export const Modal: FC<TModalProps> = (props) => {
     const {children, title, onClose} = props;
     const width = props.width || 500;
     const height = props.height || 500;
     const modalRoot = document.getElementById("react-modals");
 
     useEffect(() => {
-        const close = (e:KeyboardEvent) => {
+        const close = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
                 onClose(e);
             }

@@ -1,13 +1,14 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {postOrder} from "../../utils/api";
+import {TIngredientsUid, TIngredientUid} from "../../utils/types";
 
 export const placeOrder = createAsyncThunk(
     'order/place',
-    async (params, {rejectWithValue}) => {
+    async (params: { ingredients: TIngredientsUid }, {rejectWithValue}) => {
         try {
             const response = await postOrder(params);
             return response.order.number;
-        } catch (err) {
+        } catch (err: any) {
             return rejectWithValue(err.response.data);
         }
     }
@@ -16,6 +17,8 @@ export const placeOrder = createAsyncThunk(
 const initialState = {
     num: null,
     total: 0,
+    isLoading: false,
+    hasError: null,
 };
 
 const orderSlice = createSlice({
@@ -25,7 +28,7 @@ const orderSlice = createSlice({
         getTotal(state, action) {
             let total = 0;
             const {ingredients, bun} = action.payload;
-            total += (ingredients.reduce((acc, current) => acc + Number(current.price), 0)) || 0;
+            total += (ingredients.reduce((acc: number, current: TIngredientUid) => acc + Number(current.price), 0)) || 0;
             total += Number(bun.price) * 2;
             state.total = total;
         },
@@ -41,7 +44,7 @@ const orderSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = null;
             })
-            .addCase(placeOrder.rejected, (state, action) => {
+            .addCase(placeOrder.rejected, (state: any, action) => {
                 state.isLoading = false;
                 state.hasError = action.payload;
             });

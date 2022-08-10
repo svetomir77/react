@@ -7,8 +7,9 @@ import {useDispatch} from "react-redux";
 import {clearMessage, passwordResetRequest} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
 import {TButton} from "../../utils/types";
-const Button:TButton = ButtonUI;
-export const ForgotPasswordPage:FC = () => {
+
+const Button: TButton = ButtonUI;
+export const ForgotPasswordPage: FC = () => {
     const initialData = {
         email: "",
     };
@@ -19,7 +20,7 @@ export const ForgotPasswordPage:FC = () => {
     const [actionMade, setActionMade] = useState(false);
     const handleChange = useFieldChange(setLogInData);
 
-    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // @ts-ignore
         dispatch(clearMessage());

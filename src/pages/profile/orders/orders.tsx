@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import styles from "../profile.module.css";
 import {FC} from "react";
 
-export const ProfileOrdersPage:FC = () => {
+export const ProfileOrdersPage: FC = () => {
 
     return (
         <section className={styles.main}>

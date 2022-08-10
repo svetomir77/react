@@ -8,12 +8,11 @@
  */
 import {TIngredientUid} from "./types";
 
-const addUUID = (arr:TIngredientUid[], item:TIngredientUid, id:keyof TIngredientUid) => {
-    const counter = {};
+const addUUID = (arr: TIngredientUid[], item: TIngredientUid, id: keyof TIngredientUid) => {
     let count = 0;
     arr.forEach((current) => {
         if (item[id] === current[id]) {
-            const [currentId, currentCount] = current.uuid.split('_');
+            const [_, currentCount] = current.uuid.split('_');
             if (Number(currentCount) > count) {
                 count = Number(currentCount);
             }

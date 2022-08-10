@@ -7,7 +7,7 @@ import {TLogin} from "../utils/types";
 
 
 export function useAuth() {
-    let {accessToken, message, hasError} = useSelector((store:any) => store.auth);
+    let {accessToken, message, hasError} = useSelector((store: any) => store.auth);
     const dispatch = useDispatch();
     const logged = Boolean(getCookie('token'));
 
@@ -27,7 +27,7 @@ export function useAuth() {
         }
     };
 
-    const signIn = async (formData:TLogin) => {
+    const signIn = async (formData: TLogin) => {
         // @ts-ignore
         return await dispatch(authLogin(formData));
     };

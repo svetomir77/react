@@ -6,17 +6,18 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 html, body, #root {
     height: 100%;
 }
 
-a:-webkit-any-link{
+a:-webkit-any-link {
     color: inherit;
     cursor: pointer;
     text-decoration: none !important;
 }
-a:hover, a:visited, a:link, a:active
-{
+
+a:hover, a:visited, a:link, a:active {
     text-decoration: none;
     color: inherit;
 }
@@ -41,6 +42,7 @@ code {
     display: flex;
     text-decoration: none;
 }
+
 .text_color_active {
     color: #ffffff;
 }

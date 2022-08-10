@@ -11,7 +11,7 @@ const LOGOUT_URL = `${API_URL}/auth/logout`;
 const TOKEN_URL = `${API_URL}/auth/token`;
 const USER_URL = `${API_URL}/auth/user`;
 
-function getPostCfg(params:any=undefined) {
+function getPostCfg(params: any = undefined) {
     return {
         method: 'POST',
         headers: {
@@ -40,7 +40,7 @@ function getAuthCfg(method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH', params:
     return cfg;
 }
 
-async function checkResponse(res:Response) {
+async function checkResponse(res: Response) {
     const isJson = res.headers.get('content-type')?.includes('application/json');
     const data = isJson ? await res.json() : null;
 
@@ -52,7 +52,7 @@ async function checkResponse(res:Response) {
     return data;
 }
 
-function apiFetch(url:string, config:any=undefined) {
+function apiFetch(url: string, config: any = undefined) {
     return fetch(url, config || {})
         .then(checkResponse);
 }
@@ -65,11 +65,11 @@ export function postOrder(params: { ingredients: TIngredientsUid }) {
     return apiFetch(ORDER_URL, getPostCfg(params));
 }
 
-export function postPasswordResetRequest(params: Pick<TLogin,'email'>) {
+export function postPasswordResetRequest(params: Pick<TLogin, 'email'>) {
     return apiFetch(PASSWORD_RESET_REQUEST_URL, getPostCfg(params));
 }
 
-export function postPasswordResetUpdate(params: Pick<TLogin,'password'> & TToken) {
+export function postPasswordResetUpdate(params: Pick<TLogin, 'password'> & TToken) {
     return apiFetch(PASSWORD_RESET_UPDATE_URL, getPostCfg(params));
 }
 
@@ -93,6 +93,6 @@ export function getUserRequest(params: TToken) {
     return apiFetch(USER_URL, getAuthCfg('GET', params));
 }
 
-export function updateUser(params: TToken & { body: TUser}) {
+export function updateUser(params: TToken & { body: TUser }) {
     return apiFetch(USER_URL, getAuthCfg('PATCH', params));
 }

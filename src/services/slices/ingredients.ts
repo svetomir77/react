@@ -7,7 +7,7 @@ export const fetchIngredients = createAsyncThunk(
         try {
             const response = await loadIngredients();
             return response.data;
-        } catch (err) {
+        } catch (err: any) {
             return rejectWithValue(err.response.data);
         }
     }
@@ -32,7 +32,7 @@ const ingredientsSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = null;
             })
-            .addCase(fetchIngredients.rejected, (state, action) => {
+            .addCase(fetchIngredients.rejected, (state: any, action) => {
                 state.isLoading = false;
                 state.hasError = action.payload;
             });

@@ -1,7 +1,7 @@
 import styles from "./feed.module.css";
 import {FC} from "react";
 
-export const FeedPage:FC = () => {
+export const FeedPage: FC = () => {
 
     return (
         <section className={styles.main}>

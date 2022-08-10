@@ -7,11 +7,12 @@ import {useAuth} from "../../services/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {userUpdate} from "../../services/slices/auth";
 import {TButton} from "../../utils/types";
-const Button:TButton = ButtonUI;
+
+const Button: TButton = ButtonUI;
 
 
-export const ProfilePage:FC = () => {
-    let {hasError, user, accessToken, message} = useSelector((store:any) => store.auth);
+export const ProfilePage: FC = () => {
+    let {hasError, user, accessToken, message} = useSelector((store: any) => store.auth);
     const [isFormDirty, setIsFormDirty] = useState(false);
     const initialData = {...user, password: ''} || {
         name: "",
@@ -35,12 +36,12 @@ export const ProfilePage:FC = () => {
 
     const dispatch = useDispatch();
 
-    const onCancel = (e:SyntheticEvent) => {
+    const onCancel = (e: SyntheticEvent) => {
         e.preventDefault();
         setProfileData({...user, password: ''});
     }
 
-    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const params = {token: accessToken, body: profileData};
         // @ts-ignore
@@ -101,7 +102,8 @@ export const ProfilePage:FC = () => {
                     </section>
                     {isFormDirty &&
                     <section className={`${styles.buttons} mt-10`}>
-                        <Button>Сохранить</Button><Button onClick={onCancel}>Отмена</Button><span className='mr-6'></span>
+                        <Button>Сохранить</Button><span className='mr-6'></span><Button
+                        onClick={onCancel}>Отмена</Button>
                     </section>
                     }
                     {hasError && message && <section className='error mt-6'>{message}</section>}

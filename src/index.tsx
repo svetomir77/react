@@ -9,6 +9,7 @@ import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider} from "react-redux";
+
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
 const store = configureStore({
@@ -27,10 +28,10 @@ root.render(
     <Provider store={store}>
         <Router>
             {(isProductionEnv && (
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-            )) || <App />}
+                <React.StrictMode>
+                    <App/>
+                </React.StrictMode>
+            )) || <App/>}
         </Router>
     </Provider>
 );

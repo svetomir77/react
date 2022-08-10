@@ -1,10 +1,12 @@
 import {useAuth} from '../services/auth';
 import {Redirect, Route, RouteProps} from 'react-router-dom';
 import {FC, ReactNode, useEffect, useState} from 'react';
-interface Props extends RouteProps{
+
+interface Props extends RouteProps {
     children: ReactNode;
 }
-export const ProtectedRoute:FC<Props> = ({children, ...rest}) => {
+
+export const ProtectedRoute: FC<Props> = ({children, ...rest}) => {
     const {getUser, logged} = useAuth();
     const [isUserLoaded, setUserLoaded] = useState(false);
 

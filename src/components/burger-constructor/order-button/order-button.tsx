@@ -8,7 +8,8 @@ import {getTotal} from "../../../services/slices/order-details";
 import {useAuth} from "../../../services/auth";
 import {useHistory} from "react-router-dom";
 import {TButton, TOnClose} from "../../../utils/types";
-const Button:TButton = ButtonUI;
+
+const Button: TButton = ButtonUI;
 
 function OrderButton() {
     type TModal = {
@@ -18,7 +19,7 @@ function OrderButton() {
         visible: false
     });
     const dispatch = useDispatch();
-    const {bun, ingredients, total} = useSelector((store:any) => {
+    const {bun, ingredients, total} = useSelector((store: any) => {
         return {
             bun: store.burger.bun,
             ingredients: store.burger.ingredients,
@@ -41,7 +42,7 @@ function OrderButton() {
             history.push('/login');
         }
     }
-    const handleCloseModal:TOnClose = () => {
+    const handleCloseModal: TOnClose = () => {
         setModalState({...modalState, visible: false});
     }
     return (

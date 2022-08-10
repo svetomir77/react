@@ -6,14 +6,14 @@ import {useSelector} from "react-redux";
 import {TBurgerIngredientProps, TIngredientUid} from "../../../../utils/types";
 
 export const DraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) => {
-    const {ingredients, bun} = useSelector((store:any) => store.burger);
+    const {ingredients, bun} = useSelector((store: any) => store.burger);
     const count = (ingredient.type === 'bun' && bun._id === ingredient._id) ? 2
-        : ingredients.reduce((acc:number, current:TIngredientUid) => acc + Number(current._id === ingredient._id), 0);
+        : ingredients.reduce((acc: number, current: TIngredientUid) => acc + Number(current._id === ingredient._id), 0);
 
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',
         item: ingredient,
-        collect: (monitor:DragSourceMonitor) => ({
+        collect: (monitor: DragSourceMonitor) => ({
             isDrag: monitor.isDragging()
         })
     });

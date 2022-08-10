@@ -7,10 +7,15 @@ import {fetchIngredients, selectIngredient} from "../../services/slices/ingredie
 import styles from './ingredient-details.module.css';
 import {TIngredient} from "../../utils/types";
 
-export const IngredientDetailsPage:FC = () => {
-    const {id} = useParams<{ id:string }>();
+export const IngredientDetailsPage: FC = () => {
+    const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
-    const {items: ingredients, isLoading, hasError, selected: ingredient} = useSelector((store:any) => store.ingredients);
+    const {
+        items: ingredients,
+        isLoading,
+        hasError,
+        selected: ingredient
+    } = useSelector((store: any) => store.ingredients);
 
     // загрузка ингридиентов
     useEffect(() => {
@@ -20,7 +25,7 @@ export const IngredientDetailsPage:FC = () => {
 
     // получение текущего ингридиента
     useEffect(() => {
-        const [selected] = ingredients && ingredients.filter((item:TIngredient) => item._id === id);
+        const [selected] = ingredients && ingredients.filter((item: TIngredient) => item._id === id);
         dispatch(selectIngredient(selected));
     }, [ingredients, dispatch, id]);
 

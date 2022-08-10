@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Tab as TabUI} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+
 export const Tab: FC<{
     active: boolean;
     value: string;
@@ -13,8 +13,8 @@ type TTabBarProps = {
     onTabClick: (tab: string) => void;
 }
 
-export const TabBar:FC<TTabBarProps> = ({currentTab, onTabClick}) => {
-    const onClick = (current:string) => {
+export const TabBar: FC<TTabBarProps> = ({currentTab, onTabClick}) => {
+    const onClick = (current: string) => {
         onTabClick(current);
     }
     return (

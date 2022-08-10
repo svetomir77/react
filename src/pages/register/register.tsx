@@ -8,9 +8,10 @@ import {userCreate} from "../../services/slices/auth";
 import {setCookie} from "../../utils/cookies";
 import {useAuth} from "../../services/auth";
 import {TButton} from "../../utils/types";
-const Button:TButton = ButtonUI;
 
-export const RegisterPage:FC = () => {
+const Button: TButton = ButtonUI;
+
+export const RegisterPage: FC = () => {
     const initialData = {
         name: '',
         email: '',
@@ -22,10 +23,10 @@ export const RegisterPage:FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {logged} = useAuth();
-    const {refreshToken} = useSelector((store:any) => store.auth);
+    const {refreshToken} = useSelector((store: any) => store.auth);
 
 
-    const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (userData.name && userData.email && userData.password) {
             // @ts-ignore
