@@ -21,8 +21,11 @@ export type TIngredients = TIngredient[];
 
 export type TIngredientsUid = TIngredientUid[];
 
-export type TBurgerIngredientProps = {
+export type TBurgerIngredientUidProps = {
     ingredient: TIngredientUid,
+}
+export type TBurgerIngredientProps = {
+    ingredient: TIngredient,
 }
 
 export type TOnClose = ((e: SyntheticEvent | KeyboardEvent) => void)
@@ -42,7 +45,7 @@ export type TUser = TLogin & {
 }
 
 export type TToken = {
-    token?: string;
+    token: string | null;
 }
 
 export type TButton = React.FC<{
@@ -54,3 +57,15 @@ export type TButton = React.FC<{
     htmlType?: 'button' | 'submit' | 'reset';
     children: React.ReactNode;
 }>
+
+export type TAuthState = {
+    accessToken: string | null,
+    refreshToken: string | null,
+    user: {
+        email: string,
+        name: string,
+    },
+    message: string | null,
+    isLoading: boolean,
+    hasError: boolean,
+}

@@ -11,7 +11,7 @@ const LOGOUT_URL = `${API_URL}/auth/logout`;
 const TOKEN_URL = `${API_URL}/auth/token`;
 const USER_URL = `${API_URL}/auth/user`;
 
-function getPostCfg(params: any = undefined) {
+function getPostCfg(params: {} | undefined = undefined) {
     return {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ function getPostCfg(params: any = undefined) {
     }
 }
 
-function getAuthCfg(method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH', params: { token?: string, body?: any }) {
+function getAuthCfg(method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH', params: { token: string | null, body?: any }) {
     let cfg = {
         method: method,
         mode: 'cors',
@@ -52,7 +52,7 @@ async function checkResponse(res: Response) {
     return data;
 }
 
-function apiFetch(url: string, config: any = undefined) {
+function apiFetch(url: string, config: object | undefined = undefined) {
     return fetch(url, config || {})
         .then(checkResponse);
 }
@@ -61,7 +61,7 @@ export function loadIngredients() {
     return apiFetch(BURGER_URL);
 }
 
-export function postOrder(params: { ingredients: TIngredientsUid }) {
+export function postOrder(params: { ingredients: string[] }) {
     return apiFetch(ORDER_URL, getPostCfg(params));
 }
 

@@ -4,13 +4,13 @@ import burgerConstructor from "./burger-constructor.module.css";
 import {BurgerStructure} from "./structure/structure";
 import OrderButton from "./order-button/order-button";
 import {DropTargetMonitor, useDrop} from "react-dnd";
-import {useDispatch, useSelector} from "react-redux";
 import {addBun, addIngredient, changeIngredientPosition} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
+import {useDispatch, useSelector} from "../../index";
 
 export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
-    const {bun} = useSelector((store: any) => store.burger);
+    const {bun} = useSelector((store) => store.burger);
     let overIngredient: Element | null;
     const onDrop = (ingredient: TIngredient, monitor: DropTargetMonitor) => {
         const dragType = monitor.getItemType();

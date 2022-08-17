@@ -1,26 +1,23 @@
-import {useDispatch, useSelector} from "react-redux";
 import {authLogin, authLogout, authToken, getUserAccess} from "./slices/auth";
 import {getCookie} from "../utils/cookies";
 import {useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {TLogin} from "../utils/types";
+import {useDispatch, useSelector} from "../index";
 
 
 export function useAuth() {
-    let {accessToken, message, hasError} = useSelector((store: any) => store.auth);
+    let {accessToken, message, hasError} = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const logged = Boolean(getCookie('token'));
 
     const getUser = async () => {
         if (logged) {
             if (!accessToken) {
-                // @ts-ignore
                 return await dispatch(authToken()).then(async ({payload}) => {
-                    // @ts-ignore
                     return await dispatch(getUserAccess({token: payload.accessToken}));
                 });
             }
-            // @ts-ignore
             return await dispatch(getUserAccess({token: accessToken}));
         } else {
             return signIn({email: '', password: ''});
@@ -28,12 +25,10 @@ export function useAuth() {
     };
 
     const signIn = async (formData: TLogin) => {
-        // @ts-ignore
         return await dispatch(authLogin(formData));
     };
 
     const signOut = async () => {
-        // @ts-ignore
         return await dispatch(authLogout());
     };
 

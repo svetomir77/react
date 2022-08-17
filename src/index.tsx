@@ -4,21 +4,23 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
 import {App} from './components/app/app';
 import reportWebVitals from './report_web_vitals';
-import thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
-import {Provider} from "react-redux";
+import {Provider, TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook} from "react-redux";
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
 const store = configureStore({
     reducer: rootReducer,
-    middleware: [thunk],
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunkMiddleware) ,
     devTools: !isProductionEnv,
 });
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>
+export const useDispatch: () => AppDispatch = dispatchHook;
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

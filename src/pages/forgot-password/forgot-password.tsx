@@ -1,14 +1,13 @@
 import React, {FC, FormEvent, useState} from 'react';
 import {Center} from "../../components/center/center";
-import {Button as ButtonUI, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {clearMessage, passwordResetRequest} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
-import {TButton} from "../../utils/types";
+import {Button} from "../../components/Button";
+import {useDispatch} from "../../index";
 
-const Button: TButton = ButtonUI;
 export const ForgotPasswordPage: FC = () => {
     const initialData = {
         email: "",
@@ -22,14 +21,12 @@ export const ForgotPasswordPage: FC = () => {
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(clearMessage());
         setActionMade(true);
 
         const params = {
             email: logInData.email
         };
-        // @ts-ignore
         dispatch(passwordResetRequest(params));
     }
 

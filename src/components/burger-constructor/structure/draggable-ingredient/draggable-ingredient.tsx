@@ -3,10 +3,10 @@ import {DragSourceMonitor, useDrag} from "react-dnd";
 import {useDispatch} from "react-redux";
 import burgerDraggableIngredient from "./draggable-ingredient.module.css";
 import {removeIngredient} from "../../../../services/slices/burger";
-import {TBurgerIngredientProps} from "../../../../utils/types";
+import {TBurgerIngredientProps, TBurgerIngredientUidProps} from "../../../../utils/types";
 import {FC} from "react";
 
-export const BurgerDraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) => {
+export const BurgerDraggableIngredient: FC<TBurgerIngredientUidProps> = ({ingredient}) => {
     const dispatch = useDispatch();
     const onClose = (uuid: string) => {
         dispatch(removeIngredient(uuid));

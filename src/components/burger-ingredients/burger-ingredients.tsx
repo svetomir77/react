@@ -1,9 +1,9 @@
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
 import burgerIngredients from "./burger-ingredients.module.css";
 import {TabBar} from './tab-bar/tab-bar';
 import {IngredientSection} from "./section/section";
 import {TIngredient} from "../../utils/types";
+import {useSelector} from "../../index";
 
 export const BurgerIngredients: FC = () => {
     const scrollContainerRef = useRef<HTMLElement>(null);
@@ -49,7 +49,7 @@ export const BurgerIngredients: FC = () => {
         const el = document.getElementById(tab);
         if (el) el.scrollIntoView({behavior: "smooth"});
     }
-    const ingredients = useSelector((store: any) => store.ingredients.items);
+    const ingredients = useSelector((store) => store.ingredients.items);
     const buns = useMemo(() => ingredients.filter((item: TIngredient) => item.type === 'bun'), [ingredients]);
     const sauce = useMemo(() => ingredients.filter((item: TIngredient) => item.type === 'sauce'), [ingredients]);
     const main = useMemo(() => ingredients.filter((item: TIngredient) => item.type === 'main'), [ingredients]);

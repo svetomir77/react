@@ -1,14 +1,13 @@
 import styles from './order-details.module.css';
 import React, {FC, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {placeOrder} from "../../services/slices/order-details";
 import {removeAllIngredients} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
-import {AppDispatch} from "../../index";
+import {useDispatch, useSelector} from "../../index";
 
 export const OrderDetails: FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store: any) => {
+    const dispatch = useDispatch();
+    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store) => {
         return {
             ingredients: store.burger.ingredients,
             bun: store.burger.bun,
@@ -24,7 +23,6 @@ export const OrderDetails: FC = () => {
         const params = {
             ingredients: [bunId, ...ingredientIds, bunId]
         };
-        // @ts-ignore
         dispatch(placeOrder(params));
     }, []);
 

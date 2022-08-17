@@ -1,15 +1,13 @@
 import React, {FC, FormEvent, useState} from 'react';
 import {Center} from "../../components/center/center";
-import {Button as ButtonUI, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, Redirect, useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {userCreate} from "../../services/slices/auth";
 import {setCookie} from "../../utils/cookies";
 import {useAuth} from "../../services/auth";
-import {TButton} from "../../utils/types";
-
-const Button: TButton = ButtonUI;
+import {useDispatch, useSelector} from "../../index";
+import {Button} from "../../components/Button";
 
 export const RegisterPage: FC = () => {
     const initialData = {
@@ -23,13 +21,12 @@ export const RegisterPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {logged} = useAuth();
-    const {refreshToken} = useSelector((store: any) => store.auth);
+    const {refreshToken} = useSelector((store) => store.auth);
 
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (userData.name && userData.email && userData.password) {
-            // @ts-ignore
             dispatch(userCreate(userData)).then(() => {
                 setCookie('token', refreshToken);
                 history.push('/');

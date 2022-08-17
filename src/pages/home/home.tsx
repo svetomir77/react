@@ -4,14 +4,13 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {BurgerIngredients} from "../../components/burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "../../components/burger-constructor/burger-constructor";
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../services/slices/ingredients";
+import {useDispatch, useSelector} from "../../index";
 
 export const HomePage = () => {
     const dispatch = useDispatch();
-    const {items: ingredients, isLoading, hasError} = useSelector((store: any) => store.ingredients);
+    const {items: ingredients, isLoading, hasError} = useSelector((store) => store.ingredients);
     useEffect(() => {
-        // @ts-ignore
         dispatch(fetchIngredients());
     }, []);
 

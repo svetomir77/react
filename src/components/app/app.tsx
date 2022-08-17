@@ -51,7 +51,7 @@ export const App: FC = () => {
                         <ProfileOrdersPage/>
                     </ProtectedRoute>
                     <Route path="/ingredients/:id" exact={true}>
-                        <IngredientDetailsPage/>
+                        {ingredient ? <HomePage/> : <IngredientDetailsPage/>}
                     </Route>
                     <Route path="/feed" exact={true}>
                         <FeedPage/>

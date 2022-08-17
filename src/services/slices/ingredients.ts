@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loadIngredients} from '../../utils/api';
+import {TIngredient, TIngredients} from "../../utils/types";
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetch',
@@ -13,9 +14,18 @@ export const fetchIngredients = createAsyncThunk(
     }
 );
 
+type TIngredientsState = {
+    items: TIngredients,
+    isLoading: boolean,
+    hasError: string | null,
+    selected: TIngredient | null,
+}
+
+const initialState:TIngredientsState = {items: [], isLoading: false, hasError: null, selected: null};
+
 const ingredientsSlice = createSlice({
     name: 'ingredients',
-    initialState: {items: [], isLoading: false, hasError: null, selected: null},
+    initialState: initialState,
     reducers: {
         selectIngredient(state, action) {
             state.selected = action.payload;
@@ -32,7 +42,7 @@ const ingredientsSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = null;
             })
-            .addCase(fetchIngredients.rejected, (state: any, action) => {
+            .addCase(fetchIngredients.rejected, (state, action: any) => {
                 state.isLoading = false;
                 state.hasError = action.payload;
             });

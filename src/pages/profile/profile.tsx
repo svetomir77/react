@@ -1,18 +1,15 @@
 import React, {FC, FormEvent, SyntheticEvent, useCallback, useEffect, useState} from 'react';
-import {Button as ButtonUI, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, useHistory} from "react-router-dom";
 import styles from "./profile.module.css";
 import {useAuth} from "../../services/auth";
-import {useDispatch, useSelector} from "react-redux";
 import {userUpdate} from "../../services/slices/auth";
-import {TButton} from "../../utils/types";
-
-const Button: TButton = ButtonUI;
-
+import {useDispatch, useSelector} from "../../index";
+import {Button} from "../../components/Button";
 
 export const ProfilePage: FC = () => {
-    let {hasError, user, accessToken, message} = useSelector((store: any) => store.auth);
+    const {hasError, user, accessToken, message} = useSelector((store) => store.auth);
     const [isFormDirty, setIsFormDirty] = useState(false);
     const initialData = {...user, password: ''} || {
         name: "",
@@ -44,7 +41,6 @@ export const ProfilePage: FC = () => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const params = {token: accessToken, body: profileData};
-        // @ts-ignore
         dispatch(userUpdate(params));
     }
 

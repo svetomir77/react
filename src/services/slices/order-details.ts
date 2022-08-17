@@ -4,7 +4,7 @@ import {TIngredientsUid, TIngredientUid} from "../../utils/types";
 
 export const placeOrder = createAsyncThunk(
     'order/place',
-    async (params: { ingredients: TIngredientsUid }, {rejectWithValue}) => {
+    async (params: { ingredients: string[] }, {rejectWithValue}) => {
         try {
             const response = await postOrder(params);
             return response.order.number;
@@ -44,7 +44,7 @@ const orderSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = null;
             })
-            .addCase(placeOrder.rejected, (state: any, action) => {
+            .addCase(placeOrder.rejected, (state:any, action) => {
                 state.isLoading = false;
                 state.hasError = action.payload;
             });

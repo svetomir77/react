@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Button as ButtonUI, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import orderButton from "./order-button.module.css";
 import {Modal} from '../../modal/modal';
 import {OrderDetails} from '../../order-details/order-details';
-import {useDispatch, useSelector} from "react-redux";
 import {getTotal} from "../../../services/slices/order-details";
 import {useAuth} from "../../../services/auth";
 import {useHistory} from "react-router-dom";
-import {TButton, TOnClose} from "../../../utils/types";
+import {TOnClose} from "../../../utils/types";
+import {useDispatch, useSelector} from "../../../index";
+import {Button} from "../../Button";
 
-const Button: TButton = ButtonUI;
+
 
 function OrderButton() {
     type TModal = {
@@ -19,7 +20,7 @@ function OrderButton() {
         visible: false
     });
     const dispatch = useDispatch();
-    const {bun, ingredients, total} = useSelector((store: any) => {
+    const {bun, ingredients, total} = useSelector((store) => {
         return {
             bun: store.burger.bun,
             ingredients: store.burger.ingredients,
