@@ -1,10 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {postOrder} from "../../utils/api";
-import {TIngredientsUid, TIngredientUid} from "../../utils/types";
+import {TIngredientUid, TOrderIngredients, TToken} from "../../utils/types";
 
 export const placeOrder = createAsyncThunk(
     'order/place',
-    async (params: { ingredients: string[] }, {rejectWithValue}) => {
+    async (params: TToken & { body: TOrderIngredients }, {rejectWithValue}) => {
         try {
             const response = await postOrder(params);
             return response.order.number;

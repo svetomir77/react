@@ -5,18 +5,21 @@ import {useHistory} from "react-router-dom";
 import {TLogin} from "../utils/types";
 import {useDispatch, useSelector} from "../index";
 
-
 export function useAuth() {
     let {accessToken, message, hasError} = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const logged = Boolean(getCookie('token'));
 
+    const getAccessToken = async function () {
+        return await dispatch(authToken()).then(async ({payload}) => {
+            return await dispatch(getUserAccess({token: payload.accessToken}));
+        });
+    }
+
     const getUser = async () => {
         if (logged) {
             if (!accessToken) {
-                return await dispatch(authToken()).then(async ({payload}) => {
-                    return await dispatch(getUserAccess({token: payload.accessToken}));
-                });
+                return await getAccessToken();
             }
             return await dispatch(getUserAccess({token: accessToken}));
         } else {

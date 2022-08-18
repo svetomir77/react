@@ -14,6 +14,8 @@ import {Modal} from "../modal/modal";
 import React, {FC} from "react";
 import {AppHeader} from "../app-header/app-header";
 import {LocationState, TOnClose} from "../../utils/types";
+import {ProfileOrderDetailsPage} from "../../pages/profile/order-details/order-details";
+import {FeedDetailsPage} from "../../pages/feed-details/feed-details";
 
 export const App: FC = () => {
     const location = useLocation();
@@ -56,6 +58,12 @@ export const App: FC = () => {
                     <Route path="/feed" exact={true}>
                         <FeedPage/>
                     </Route>
+                    <Route path="/feed/:id" exact={true}>
+                        <FeedDetailsPage/>
+                    </Route>
+                    <ProtectedRoute path="/profile/orders/:id" exact={true}>
+                        <ProfileOrderDetailsPage/>
+                    </ProtectedRoute>
                 </Switch>
             </div>
             {ingredient && (

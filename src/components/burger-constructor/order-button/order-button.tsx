@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import orderButton from "./order-button.module.css";
 import {Modal} from '../../modal/modal';
-import {OrderDetails} from '../../order-details/order-details';
+import {OrderConfirm} from '../../order-confirm/order-confirm';
 import {getTotal} from "../../../services/slices/order-details";
 import {useAuth} from "../../../services/auth";
 import {useHistory} from "react-router-dom";
@@ -54,7 +54,7 @@ function OrderButton() {
                     disabled={(!ingredients.length || !bun.name)}>
                 Оформить заказ
             </Button>
-            {modalState.visible && <Modal width={720} height={720} onClose={handleCloseModal}><OrderDetails/></Modal>}
+            {modalState.visible && <Modal width={720} height={720} onClose={handleCloseModal}><OrderConfirm/></Modal>}
         </section>
     )
 }

@@ -44,6 +44,10 @@ export type TUser = TLogin & {
     name: string;
 }
 
+export type TOrderIngredients = {
+    ingredients: string[];
+}
+
 export type TToken = {
     token: string | null;
 }

@@ -1,4 +1,4 @@
-import {TIngredientsUid, TLogin, TToken, TUser} from "./types";
+import {TIngredientsUid, TLogin, TOrderIngredients, TToken, TUser} from "./types";
 
 const API_URL = 'https://norma.nomoreparties.space/api';
 const BURGER_URL = `${API_URL}/ingredients`;
@@ -61,8 +61,8 @@ export function loadIngredients() {
     return apiFetch(BURGER_URL);
 }
 
-export function postOrder(params: { ingredients: string[] }) {
-    return apiFetch(ORDER_URL, getPostCfg(params));
+export function postOrder(params: TToken & { body: TOrderIngredients }) {
+    return apiFetch(ORDER_URL, getAuthCfg('POST', params));
 }
 
 export function postPasswordResetRequest(params: Pick<TLogin, 'email'>) {
