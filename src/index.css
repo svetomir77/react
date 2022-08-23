@@ -28,7 +28,7 @@ a:hover, a:visited, a:link, a:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: #F2F2F3;
 }
 
 code {

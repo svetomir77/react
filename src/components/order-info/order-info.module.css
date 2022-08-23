@@ -1,0 +1,62 @@
+.main {
+    flex: 1;
+    flex-direction: column;
+    background-color: #1C1C21;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+}
+.container {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+.top {
+    justify-content: space-between;
+    display: flex;
+}
+.icons {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon {
+    position: relative;
+    display: block;
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #3109ad;
+    margin-left: -24px;
+    background-color: #131316;
+}
+.icon > img {
+    left: -25px;
+    top: 3px;
+    width: 112px;
+    height: 56px;
+    position: relative;
+}
+.icon:global(.counter:not([data-count=""]):after) {
+    content: attr(data-count);
+    position: absolute;
+    color: #F2F2F3;
+    font-family: 'JetBrains Mono';
+    font-size: 16px;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    top: 0px;
+    background: #1C1C21;
+    opacity: 0.6;
+    font-weight: bold;
+}
+.price {
+    display: flex;
+    justify-items: center;
+    gap: 9px;
+}

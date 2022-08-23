@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import styles from "../profile.module.css";
 import {FC} from "react";
+import {OrderInfo} from "../../../components/order-info/order-info";
 
 export const ProfileOrdersPage: FC = () => {
 
@@ -12,11 +13,14 @@ export const ProfileOrdersPage: FC = () => {
                 <h3 className={`${styles.header} text_type_main-medium`}>История заказов</h3>
                 <section className={`${styles.link} text_color_inactive`}><Link to='/logout'>Выход</Link></section>
                 <section className={`${styles.info} mt-20 text text_type_main-small text_color_inactive`}>
-
+                    В этом разделе вы можете посмотреть свою историю заказов
                 </section>
             </section>
-            <section className={`${styles.colRight}`}>
-
+            <section className={`${styles.colRight} scroller`}>
+                <OrderInfo/>
+                <OrderInfo/>
+                <OrderInfo/>
+                <OrderInfo/>
             </section>
         </section>
     );

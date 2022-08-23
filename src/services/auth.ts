@@ -47,6 +47,8 @@ export function useAuth() {
                 });
                 break;
             case 'Password successfully reset':
+            case 'Token is invalid':
+            case 'You should be authorized':
             case 'Jwt expired': {
                 const logout = async () => {
                     return await signOut().then(() => {
