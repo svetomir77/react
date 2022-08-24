@@ -73,3 +73,26 @@ export type TAuthState = {
     isLoading: boolean,
     hasError: boolean,
 }
+
+export const isDone = 'done';
+export const isPending = 'pending';
+export const isCreated = 'created';
+export type TStatus = typeof isDone | typeof isPending | typeof isCreated;
+export type TOrder = {
+    _id: string;
+    ingredients: string[];
+    status: TStatus;
+    number: number;
+    name: string;
+    createdAt:string;
+    updatedAt:string;
+}
+
+export type TFeedState = {
+    orders: TOrder[] | [];
+    total: number;
+    totalToday: number;
+    connecting: boolean;
+    online: boolean;
+    connectionError: string | null;
+}

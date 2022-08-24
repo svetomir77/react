@@ -9,12 +9,15 @@ import {configureStore} from '@reduxjs/toolkit'
 
 import rootReducer from './services/reducers';
 import {Provider, TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook} from "react-redux";
+import {socketMiddleware} from "./services/middleware/socketMiddleware";
+import {feedActions} from "./services/slices/feed";
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
+
 const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunkMiddleware) ,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunkMiddleware, socketMiddleware(feedActions)) ,
     devTools: !isProductionEnv,
 });
 export type RootState = ReturnType<typeof store.getState>;

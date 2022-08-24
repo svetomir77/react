@@ -33,6 +33,16 @@
 .orderLeft, .orderRight {
     flex: 1;
 }
+.orderCols ul {
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: flex;
+    max-height: 330px;
+    overflow: hidden;
+}
+.orderCols li {
+    width: 50%;
+}
 .done li {
     color: #00CCCC;
 }

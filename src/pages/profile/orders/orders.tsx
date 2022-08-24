@@ -17,10 +17,10 @@ export const ProfileOrdersPage: FC = () => {
                 </section>
             </section>
             <section className={`${styles.colRight} scroller`}>
-                <OrderInfo/>
-                <OrderInfo/>
-                <OrderInfo/>
-                <OrderInfo/>
+                {/*<OrderInfo/>*/}
+                {/*<OrderInfo/>*/}
+                {/*<OrderInfo/>*/}
+                {/*<OrderInfo/>*/}
             </section>
         </section>
     );

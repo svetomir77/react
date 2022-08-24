@@ -112,3 +112,6 @@ ul {
 img[src=""] {
     display: none;
 }
+.text.pending {
+    color: #00CCCC;
+}
