@@ -31,7 +31,7 @@ export const Modal: FC<TModalProps> = (props) => {
     return ReactDOM.createPortal(
         <>
             <section className={styles.container}>
-                <section className={styles.window} style={{height: height + 'px', width: width + 'px'}}>
+                <section className={`${styles.window} scroller`} style={{height: height + 'px', width: width + 'px'}}>
                     <h2 className='mt-10 ml-10 text text_type_main-large'>{title}<span
                         className={`${styles.closeIcon} icon mt-10 mr-10`} onClick={onClose}><CloseIcon type="primary"/></span>
                     </h2>

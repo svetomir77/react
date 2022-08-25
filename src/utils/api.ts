@@ -10,6 +10,7 @@ const REGISTER_URL = `${API_URL}/auth/register`;
 const LOGOUT_URL = `${API_URL}/auth/logout`;
 const TOKEN_URL = `${API_URL}/auth/token`;
 const USER_URL = `${API_URL}/auth/user`;
+export const FEED_URL = 'wss://norma.nomoreparties.space/orders';
 
 function getPostCfg(params: {} | undefined = undefined) {
     return {

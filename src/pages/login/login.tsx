@@ -5,9 +5,9 @@ import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, Redirect, useLocation} from "react-router-dom";
 import {useAuth} from "../../services/auth";
 import {clearMessage} from "../../services/slices/auth";
-import {useDispatch} from "react-redux";
-import {LocationState, TButton} from "../../utils/types";
+import {LocationState} from "../../utils/types";
 import {Button} from "../../components/Button";
+import {useDispatch} from "../../index";
 
 export const LoginPage: FC = () => {
     const initialData = {

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {TFeedState, TIngredient, TIngredientsUid, TIngredientUid} from "../../utils/types";
+import {TFeedState, TIngredient, TIngredientsUid, TIngredientUid, TOrder} from "../../utils/types";
 
 const initialState:TFeedState = {
     orders: [],
@@ -8,6 +8,7 @@ const initialState:TFeedState = {
     connecting: false,
     online: false,
     connectionError: null,
+    selected: null,
 };
 
 const feedSlice = createSlice({
@@ -35,7 +36,29 @@ const feedSlice = createSlice({
             state.orders = action.payload.orders;
             state.total = action.payload.total;
             state.totalToday = action.payload.totalToday;
-        }
+        },
+        select(state, action) {
+          const {id, orders, ingredients} = action.payload;
+            const [order] = orders && orders.filter((item: TOrder) => {
+                return Number(item.number).toString() === Number(id).toString();
+            });
+
+            if (order) {
+                const orderDetails = Object.assign({}, order);
+                orderDetails.ingredients = [];
+                orderDetails.price = 0;
+                order.ingredients.forEach((id:string) => {
+                        const [ingredient] = ingredients.filter((item: TIngredient) => item._id === id);
+
+                        if (ingredient) {
+                            orderDetails!.ingredients = [...orderDetails!.ingredients, ingredient];
+                            orderDetails!.price += ingredient.price;
+                        }
+                    });
+                state.selected = orderDetails;
+            }
+        },
+        clearState: () => initialState,
     },
 });
 

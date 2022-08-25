@@ -1,8 +1,8 @@
 import styles from './ingredient-details.module.css';
 import {TIngredient} from "../../utils/types";
 import React, {FC, useEffect} from "react";
-import {useDispatch} from "react-redux";
 import {addIngredient, removeIngredient} from "../../services/slices/ingredient-details";
+import {useDispatch} from "../../index";
 
 export const IngredientDetails: FC<{ ingredient: TIngredient }> = ({ingredient}) => {
     const dispatch = useDispatch();

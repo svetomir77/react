@@ -1,22 +1,55 @@
 import styles from './order-list.module.css';
-import {FC, ReactNode} from "react";
+import {FC, useEffect} from "react";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {TOrder} from "../../utils/types";
+import {getStatus} from "../../utils/common";
+import moment from "moment";
+import {useDispatch, useSelector} from "../../index";
+import {feedActions} from "../../services/slices/feed";
+import {fetchIngredients} from "../../services/slices/ingredients";
 
-export const OrderList: FC = () => {
+moment.locale('ru');
+
+export const OrderList: FC<{ order: TOrder }> = ({order}) => {
+    const dispatch = useDispatch();
+    const {selected, ingredients, orders} = useSelector((store) => {
+        return {
+            selected: store.feed.selected,
+            ingredients: store.ingredients.items,
+            orders: store.feed.orders,
+        }
+    });
+
+    useEffect(() => {
+        if (!ingredients) {
+            dispatch(fetchIngredients());
+        }
+        if (orders && orders.length && ingredients && ingredients.length) {
+            dispatch(feedActions.select({id: order.number, orders: orders, ingredients: ingredients}));
+        }
+    }, [orders, ingredients]);
 
     return (
-        <section className={`${styles.main}`}>
-            <div className={`${styles.center} text_type_digits-default`}>#4234223</div>
-            <header className='text text_type_main-medium mt-10'>Blackhole  Singularity острый бургер</header>
-            <div className={`${styles.acent} text text_type_main-default mt-3`}>Выполнен</div>
+        selected && <section className={`${styles.main}`}>
+            <div className={`${styles.center} text_type_digits-default`}>#{selected.number}</div>
+            <header className='text text_type_main-medium mt-10'>{selected.name}</header>
+            <div className={`${styles.acent} text text_type_main-default mt-3`}>{getStatus(selected.status)}</div>
             <div className='text text_type_main-medium mt-15'>Состав:</div>
-            <section className={`${styles.container} mt-6`}>
-                <li className='mb-4'><span className={`${styles.icon}`}><img src='https://code.s3.yandex.net/react/code/bun-02-mobile.png'/></span><span className={`${styles.text} text text_type_main-default ml-4`}>Филе Люминесцентного тетраодонтимформа</span><span className={`${styles.spacer}`}/><span className='text text_type_digits-medium'>2x20 <CurrencyIcon type="primary" /></span></li>
-                <li className='mb-4'><span className={`${styles.icon}`}><img src='https://code.s3.yandex.net/react/code/sauce-04-mobile.png'/></span><span className={`${styles.text} text text_type_main-default ml-4`}>Филе Люминесцентного тетраодонтимформа</span><span className={`${styles.spacer}`}/><span className='text text_type_digits-medium'>2x20 <CurrencyIcon type="primary" /></span></li>
+            <section className={`${styles.container} mt-6 scroller`}>
+                {selected.ingredients.map((item, index) => (
+                    <li className='mb-4' key={index}><span className={`${styles.icon}`}><img
+                        src={typeof item !== "string" ? item?.image_mobile : ''}/></span><span
+                        className={`${styles.text} text text_type_main-default ml-4`}>{typeof item !== "string" ? item?.name : ''}</span><span
+                        className={`${styles.spacer}`}/><span
+                        className='text text_type_digits-medium'>{typeof item !== "string" ? item?.price : ''}
+                        <CurrencyIcon type="primary"/></span></li>
+                ))
+                }
             </section>
             <div className={`${styles.footer} mt-10`}>
-                <div className='text text_type_main-default text_color_inactive'>Вчера, 13:50 i-GMT+3</div>
-                <div className='text text_type_digits-medium'>510 <CurrencyIcon type="primary" /></div>
+                <div
+                    className='text text_type_main-default text_color_inactive'>{selected.createdAt ? moment(selected.createdAt).calendar() : ''}</div>
+                <div className='text text_type_digits-medium'>{selected.price} <CurrencyIcon type="primary"/></div>
             </div>
         </section>
     );

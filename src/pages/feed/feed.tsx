@@ -1,23 +1,27 @@
 import styles from "./feed.module.css";
-import React, {FC, ReactNode, useEffect, useMemo} from "react";
+import React, {FC, useEffect, useMemo} from "react";
 import {OrderInfo} from "../../components/order-info/order-info";
 import {feedActions} from "../../services/slices/feed";
 import {useDispatch, useSelector} from "../../index";
-import {isDone, isPending, TIngredient} from "../../utils/types";
+import {isDone, isPending} from "../../utils/types";
+import {FEED_URL} from "../../utils/api";
+import {Link} from "react-router-dom";
 
 export const FeedPage: FC = () => {
-    const feedUrl = 'wss://norma.nomoreparties.space/orders/all';
     const dispatch = useDispatch();
-    const {orders,
+    const {
+        orders,
         total,
         totalToday,
         connecting,
         online,
-        connectionError} = useSelector((store) => store.feed);
+        connectionError
+    } = useSelector((store) => store.feed);
     useEffect(() => {
-        dispatch(feedActions.wsConnect(feedUrl));
+        dispatch(feedActions.wsConnect(`${FEED_URL}/all`));
         return () => {
             dispatch(feedActions.wsDisconnect());
+            dispatch(feedActions.clearState());
         }
     }, []);
     const readyOrders = useMemo(() => orders.filter((item) => item.status === isDone), [orders]);
@@ -29,7 +33,14 @@ export const FeedPage: FC = () => {
                 <h1 className='text text_type_main-large mt-10 mb-5'>Лента заказов</h1>
                 <section className={`${styles.leftContainer} scroller`}>{
                     orders.map((order) => (
-                        <OrderInfo key={order._id} order={order} showStatus={false}/>
+                        <Link key={order._id}
+                              to={{
+                                  pathname: `/feed/${order.number}`,
+                                  state: {order: order}
+                              }}
+                        >
+                            <OrderInfo order={order} showStatus={false}/>
+                        </Link>
                     ))
                 }</section>
             </section>

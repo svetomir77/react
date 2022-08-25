@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import ingredientList from "./list.module.css";
 import {DraggableIngredient} from "./draggable-ingredient/draggable-ingredient";
 import {Link} from "react-router-dom";
-import {TIngredients, TIngredient} from "../../../utils/types";
+import {TIngredient, TIngredients} from "../../../utils/types";
 
 export const IngredientList: FC<{ ingredients: TIngredients }> = ({ingredients}) => {
     return (

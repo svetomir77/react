@@ -16,11 +16,13 @@ import {AppHeader} from "../app-header/app-header";
 import {LocationState, TOnClose} from "../../utils/types";
 import {ProfileOrderDetailsPage} from "../../pages/profile/order-details/order-details";
 import {FeedDetailsPage} from "../../pages/feed-details/feed-details";
+import {OrderList} from "../order-list/order-list";
 
 export const App: FC = () => {
     const location = useLocation();
     const state = location.state as LocationState;
     const ingredient = state?.ingredient;
+    const order = state?.order;
     const history = useHistory();
     const back: TOnClose = (e) => {
         e && e.stopPropagation();
@@ -59,10 +61,10 @@ export const App: FC = () => {
                         <FeedPage/>
                     </Route>
                     <Route path="/feed/:id" exact={true}>
-                        <FeedDetailsPage/>
+                        {order ? <FeedPage/> : <FeedDetailsPage/>}
                     </Route>
                     <ProtectedRoute path="/profile/orders/:id" exact={true}>
-                        <ProfileOrderDetailsPage/>
+                        {order ? <ProfileOrdersPage/> : <ProfileOrderDetailsPage/>}
                     </ProtectedRoute>
                 </Switch>
             </div>
@@ -75,6 +77,17 @@ export const App: FC = () => {
                         onClose={back}
                     >
                         <IngredientDetails ingredient={ingredient}/>
+                    </Modal>
+                </Route>
+            )}
+            {order && (
+                <Route path={['/feed/:id', '/profile/orders/:id']} exact={true}>
+                    <Modal
+                        width={920}
+                        height={740}
+                        onClose={back}
+                    >
+                        <OrderList order={order}/>
                     </Modal>
                 </Route>
             )}

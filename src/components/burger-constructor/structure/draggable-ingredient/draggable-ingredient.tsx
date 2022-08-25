@@ -1,10 +1,10 @@
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {DragSourceMonitor, useDrag} from "react-dnd";
-import {useDispatch} from "react-redux";
 import burgerDraggableIngredient from "./draggable-ingredient.module.css";
 import {removeIngredient} from "../../../../services/slices/burger";
-import {TBurgerIngredientProps, TBurgerIngredientUidProps} from "../../../../utils/types";
+import {TBurgerIngredientUidProps} from "../../../../utils/types";
 import {FC} from "react";
+import {useDispatch} from "../../../../index";
 
 export const BurgerDraggableIngredient: FC<TBurgerIngredientUidProps> = ({ingredient}) => {
     const dispatch = useDispatch();

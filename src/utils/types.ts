@@ -32,6 +32,7 @@ export type TOnClose = ((e: SyntheticEvent | KeyboardEvent) => void)
 
 export type LocationState = {
     ingredient?: TIngredient;
+    order?:TOrder;
     from?: string;
 }
 
@@ -80,12 +81,13 @@ export const isCreated = 'created';
 export type TStatus = typeof isDone | typeof isPending | typeof isCreated;
 export type TOrder = {
     _id: string;
-    ingredients: string[];
+    ingredients: (string | TIngredient)[];
     status: TStatus;
     number: number;
     name: string;
     createdAt:string;
     updatedAt:string;
+    price: number;
 }
 
 export type TFeedState = {
@@ -95,4 +97,5 @@ export type TFeedState = {
     connecting: boolean;
     online: boolean;
     connectionError: string | null;
+    selected: TOrder | null;
 }

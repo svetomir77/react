@@ -1,23 +1,61 @@
-import {Link} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import styles from "../profile.module.css";
-import {FC} from "react";
+import React, {FC, useEffect} from "react";
+import {useDispatch, useSelector} from "../../../index";
+import {fetchIngredients} from "../../../services/slices/ingredients";
+import {feedActions} from "../../../services/slices/feed";
+import {FEED_URL} from "../../../utils/api";
+import {OrderList} from "../../../components/order-list/order-list";
+import {cleanToken} from "../../../utils/common";
+import {Center} from "../../../components/center/center";
 
 export const ProfileOrderDetailsPage: FC = () => {
+    const {id} = useParams<{ id: string }>();
+    const dispatch = useDispatch();
+    const {ingredientsData, orders, selected, accessToken} = useSelector((store) => {
+        return {
+            ingredientsData: store.ingredients,
+            orders: store.feed.orders,
+            selected: store.feed.selected,
+            accessToken: store.auth.accessToken
+        }
+    });
+
+    const {
+        items: ingredients,
+        isLoading,
+        hasError,
+    } = ingredientsData;
+
+    // загрузка ингридиентов
+    useEffect(() => {
+        if (!ingredients.length) {
+            const token = cleanToken(accessToken);
+            dispatch(fetchIngredients());
+            dispatch(feedActions.wsConnect(`${FEED_URL}?token=${token}`));
+
+            return () => {
+                dispatch(feedActions.wsDisconnect());
+                dispatch(feedActions.clearState());
+            }
+        }
+    }, []);
+
+    // получение текущего данных текущего заказа
+    useEffect(() => {
+        if (orders && ingredients) {
+            dispatch(feedActions.select({id: id, orders: orders, ingredients: ingredients}));
+        }
+    }, [ingredients, orders, dispatch, id]);
 
     return (
-        <section className={styles.main}>
-            <section className={`${styles.colLeft} mr-15 text text_type_main-medium`}>
-                <section className={`${styles.link} text_color_inactive`}><Link to='/profile'>Профиль</Link>
-                </section>
-                <h3 className={`${styles.header} text_type_main-medium`}>История заказов</h3>
-                <section className={`${styles.link} text_color_inactive`}><Link to='/logout'>Выход</Link></section>
-                <section className={`${styles.info} mt-20 text text_type_main-small text_color_inactive`}>
-
-                </section>
-            </section>
-            <section className={`${styles.colRight}`}>
-
-            </section>
-        </section>
+        <Center className={styles.main}>
+            {isLoading && <div className="centerText">Загрузка...</div>}
+            {hasError && <div className="centerText error">{hasError}</div>}
+            {!isLoading &&
+            !hasError &&
+            selected &&
+            <OrderList order={selected}/>}
+        </Center>
     );
 }
