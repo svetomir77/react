@@ -3,16 +3,10 @@ import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {BurgerIngredients} from "../../components/burger-ingredients/burger-ingredients";
 import {BurgerConstructor} from "../../components/burger-constructor/burger-constructor";
-import React, {useEffect} from "react";
-import {fetchIngredients} from "../../services/slices/ingredients";
-import {useDispatch, useSelector} from "../../index";
+import {useSelector} from "../../services/store";
 
 export const HomePage = () => {
-    const dispatch = useDispatch();
     const {items: ingredients, isLoading, hasError} = useSelector((store) => store.ingredients);
-    useEffect(() => {
-        dispatch(fetchIngredients());
-    }, []);
 
     return (
         <main className={styles.main}>

@@ -1,6 +1,7 @@
 import React, {SyntheticEvent} from "react";
 
 export type TIngredient = {
+    count?: number,
     _id: string,
     name: string,
     type: 'bun' | 'sauce' | 'main',

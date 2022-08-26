@@ -2,25 +2,19 @@ import {Link, useHistory} from "react-router-dom";
 import styles from "../profile.module.css";
 import React, {FC, useCallback, useEffect} from "react";
 import {OrderInfo} from "../../../components/order-info/order-info";
-import {useDispatch, useSelector} from "../../../index";
+import {useDispatch, useSelector} from "../../../services/store";
 import {feedActions} from "../../../services/slices/feed";
 import {FEED_URL} from "../../../utils/api";
 import {cleanToken} from "../../../utils/common";
 import {useAuth} from "../../../services/auth";
 
 export const ProfileOrdersPage: FC = () => {
-    const feedUrl = 'wss://norma.nomoreparties.space/orders';
     const dispatch = useDispatch();
     const {feed, accessToken} = useSelector((store) => {
         return {feed: store.feed, accessToken: store.auth.accessToken}
     });
     const {
         orders,
-        total,
-        totalToday,
-        connecting,
-        online,
-        connectionError
     } = feed;
     const auth = useAuth();
     const history = useHistory();

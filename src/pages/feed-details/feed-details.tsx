@@ -1,10 +1,9 @@
 import React, {FC, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {Center} from "../../components/center/center";
 import styles from "./feed-details.module.css";
 import {OrderList} from "../../components/order-list/order-list";
-import {fetchIngredients} from "../../services/slices/ingredients";
 import {feedActions} from "../../services/slices/feed";
 import {FEED_URL} from "../../utils/api";
 
@@ -21,16 +20,12 @@ export const FeedDetailsPage: FC = (order) => {
         hasError,
     } = ingredientsData;
 
-    // загрузка ингридиентов
     useEffect(() => {
-        if (!ingredients.length) {
-            dispatch(fetchIngredients());
-            dispatch(feedActions.wsConnect(`${FEED_URL}/all`));
+        dispatch(feedActions.wsConnect(`${FEED_URL}/all`));
 
-            return () => {
-                dispatch(feedActions.wsDisconnect());
-                dispatch(feedActions.clearState());
-            }
+        return () => {
+            dispatch(feedActions.wsDisconnect());
+            dispatch(feedActions.clearState());
         }
     }, []);
 

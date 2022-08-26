@@ -6,7 +6,7 @@ import {Link, Redirect} from "react-router-dom";
 import {clearMessage, passwordResetRequest} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
 import {Button} from "../../components/Button";
-import {useDispatch} from "../../index";
+import {useDispatch} from "../../services/store";
 
 export const ForgotPasswordPage: FC = () => {
     const initialData = {

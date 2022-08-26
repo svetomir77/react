@@ -1,11 +1,10 @@
 import styles from './order-info.module.css';
-import React, {FC, useEffect, useMemo, useState} from "react";
+import React, {FC, useMemo, useState} from "react";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TIngredients, TOrder} from "../../utils/types";
 import moment from "moment";
 import 'moment/locale/ru';
-import {useDispatch, useSelector} from "../../index";
-import {fetchIngredients} from "../../services/slices/ingredients";
+import {useSelector} from "../../services/store";
 import {getStatus} from "../../utils/common";
 
 moment.locale('ru');
@@ -13,7 +12,6 @@ moment.locale('ru');
 export const OrderInfo: FC<{ order: TOrder, showStatus: boolean }> = (props) => {
     const {order, showStatus} = props;
     const ingredientsData = useSelector((store) => store.ingredients.items);
-    const dispatch = useDispatch();
     const [structure, setStructure] = useState<{ list: TIngredients, more: number, price: number }>({
         list: [],
         more: 0,
@@ -21,25 +19,22 @@ export const OrderInfo: FC<{ order: TOrder, showStatus: boolean }> = (props) => 
     });
     const {list, more, price} = structure;
 
-    useEffect(() => {
-        if (!ingredientsData.length) {
-            dispatch(fetchIngredients());
-        }
-    }, [ingredientsData]);
-
     useMemo(() => {
             let price = 0;
             const total = order.ingredients.length;
             const data: TIngredients = [];
 
             if (total) {
+                let counter = 0;
                 order.ingredients.forEach(
                     (id, index) => {
                         const [ingredient] = ingredientsData.filter(item => item._id === id);
 
                         if (ingredient) {
-                            if (index < 6) {
+                            const [existedIngredient] = data.filter(item => item._id === id);
+                            if (!existedIngredient && counter < 6) {
                                 data.push(ingredient);
+                                counter++;
                             }
                             price += ingredient.price;
                         }

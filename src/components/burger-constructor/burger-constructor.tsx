@@ -6,7 +6,7 @@ import OrderButton from "./order-button/order-button";
 import {DropTargetMonitor, useDrop} from "react-dnd";
 import {addBun, addIngredient, changeIngredientPosition} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 
 export const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();

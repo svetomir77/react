@@ -7,7 +7,7 @@ import {getTotal} from "../../../services/slices/order-details";
 import {useAuth} from "../../../services/auth";
 import {useHistory} from "react-router-dom";
 import {TOnClose} from "../../../utils/types";
-import {useDispatch, useSelector} from "../../../index";
+import {useDispatch, useSelector} from "../../../services/store";
 import {Button} from "../../Button";
 
 

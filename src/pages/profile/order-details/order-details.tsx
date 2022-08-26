@@ -1,8 +1,7 @@
 import {useParams} from "react-router-dom";
 import styles from "../profile.module.css";
 import React, {FC, useEffect} from "react";
-import {useDispatch, useSelector} from "../../../index";
-import {fetchIngredients} from "../../../services/slices/ingredients";
+import {useDispatch, useSelector} from "../../../services/store";
 import {feedActions} from "../../../services/slices/feed";
 import {FEED_URL} from "../../../utils/api";
 import {OrderList} from "../../../components/order-list/order-list";
@@ -27,17 +26,13 @@ export const ProfileOrderDetailsPage: FC = () => {
         hasError,
     } = ingredientsData;
 
-    // загрузка ингридиентов
     useEffect(() => {
-        if (!ingredients.length) {
-            const token = cleanToken(accessToken);
-            dispatch(fetchIngredients());
-            dispatch(feedActions.wsConnect(`${FEED_URL}?token=${token}`));
+        const token = cleanToken(accessToken);
+        dispatch(feedActions.wsConnect(`${FEED_URL}?token=${token}`));
 
-            return () => {
-                dispatch(feedActions.wsDisconnect());
-                dispatch(feedActions.clearState());
-            }
+        return () => {
+            dispatch(feedActions.wsDisconnect());
+            dispatch(feedActions.clearState());
         }
     }, []);
 

@@ -7,7 +7,7 @@ import {clearMessage, passwordResetUpdate} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
 import {LocationState} from "../../utils/types";
 import {Button} from "../../components/Button";
-import {useDispatch} from "../../index";
+import {useDispatch} from "../../services/store";
 
 export const ResetPasswordPage: FC = () => {
     const initialData = {

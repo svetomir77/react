@@ -3,7 +3,7 @@ import React, {FC, useEffect} from "react";
 import {placeOrder} from "../../services/slices/order-details";
 import {removeAllIngredients} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {useAuth} from "../../services/auth";
 
 export const OrderConfirm: FC = () => {

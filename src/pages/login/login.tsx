@@ -7,7 +7,7 @@ import {useAuth} from "../../services/auth";
 import {clearMessage} from "../../services/slices/auth";
 import {LocationState} from "../../utils/types";
 import {Button} from "../../components/Button";
-import {useDispatch} from "../../index";
+import {useDispatch} from "../../services/store";
 
 export const LoginPage: FC = () => {
     const initialData = {

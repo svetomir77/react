@@ -5,7 +5,7 @@ import {Link, useHistory} from "react-router-dom";
 import styles from "./profile.module.css";
 import {useAuth} from "../../services/auth";
 import {userUpdate} from "../../services/slices/auth";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {Button} from "../../components/Button";
 
 export const ProfilePage: FC = () => {

@@ -6,7 +6,7 @@ import {Link, Redirect, useHistory} from "react-router-dom";
 import {userCreate} from "../../services/slices/auth";
 import {setCookie} from "../../utils/cookies";
 import {useAuth} from "../../services/auth";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {Button} from "../../components/Button";
 
 export const RegisterPage: FC = () => {

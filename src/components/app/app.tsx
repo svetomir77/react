@@ -11,12 +11,14 @@ import {FeedPage} from "../../pages/feed/feed";
 import {ProtectedRoute} from "../protected-route";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import {AppHeader} from "../app-header/app-header";
 import {LocationState, TOnClose} from "../../utils/types";
 import {ProfileOrderDetailsPage} from "../../pages/profile/order-details/order-details";
 import {FeedDetailsPage} from "../../pages/feed-details/feed-details";
 import {OrderList} from "../order-list/order-list";
+import {fetchIngredients} from "../../services/slices/ingredients";
+import {useDispatch} from "../../services/store";
 
 export const App: FC = () => {
     const location = useLocation();
@@ -28,6 +30,12 @@ export const App: FC = () => {
         e && e.stopPropagation();
         history.goBack();
     };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchIngredients());
+    }, []);
+
     return (
         <>
             <div className="page">

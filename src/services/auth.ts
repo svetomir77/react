@@ -3,7 +3,7 @@ import {getCookie} from "../utils/cookies";
 import {useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {TLogin} from "../utils/types";
-import {useDispatch, useSelector} from "../index";
+import {useDispatch, useSelector} from "../services/store";
 
 export function useAuth() {
     let {accessToken, message, hasError} = useSelector((store) => store.auth);

@@ -4,9 +4,8 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TOrder} from "../../utils/types";
 import {getStatus} from "../../utils/common";
 import moment from "moment";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {feedActions} from "../../services/slices/feed";
-import {fetchIngredients} from "../../services/slices/ingredients";
 
 moment.locale('ru');
 
@@ -21,13 +20,10 @@ export const OrderList: FC<{ order: TOrder }> = ({order}) => {
     });
 
     useEffect(() => {
-        if (!ingredients) {
-            dispatch(fetchIngredients());
-        }
         if (orders && orders.length && ingredients && ingredients.length) {
             dispatch(feedActions.select({id: order.number, orders: orders, ingredients: ingredients}));
         }
-    }, [orders, ingredients]);
+    }, [orders]);
 
     return (
         selected && <section className={`${styles.main}`}>
@@ -41,7 +37,7 @@ export const OrderList: FC<{ order: TOrder }> = ({order}) => {
                         src={typeof item !== "string" ? item?.image_mobile : ''}/></span><span
                         className={`${styles.text} text text_type_main-default ml-4`}>{typeof item !== "string" ? item?.name : ''}</span><span
                         className={`${styles.spacer}`}/><span
-                        className='text text_type_digits-medium'>{typeof item !== "string" ? item?.price : ''}
+                        className='text text_type_digits-medium'>{typeof item !== "string" ? item?.count : ''} x {typeof item !== "string" ? item?.price : ''}
                         <CurrencyIcon type="primary"/></span></li>
                 ))
                 }

@@ -3,7 +3,7 @@ import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-com
 import draggableIngredient from "./draggable-ingredient.module.css";
 import {DragSourceMonitor, useDrag} from "react-dnd";
 import {TBurgerIngredientProps, TIngredient} from "../../../../utils/types";
-import {useSelector} from "../../../../index";
+import {useSelector} from "../../../../services/store";
 
 export const DraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) => {
     const {ingredients, bun} = useSelector((store) => store.burger);

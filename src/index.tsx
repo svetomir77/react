@@ -4,33 +4,15 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import './index.css';
 import {App} from './components/app/app';
 import reportWebVitals from './report_web_vitals';
-import thunkMiddleware from 'redux-thunk';
-import {configureStore} from '@reduxjs/toolkit'
-
-import rootReducer from './services/reducers';
-import {Provider, TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook} from "react-redux";
-import {socketMiddleware} from "./services/middleware/socketMiddleware";
-import {feedActions} from "./services/slices/feed";
-
-const isProductionEnv = process.env.NODE_ENV === 'production';
-
-
-const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunkMiddleware, socketMiddleware(feedActions)) ,
-    devTools: !isProductionEnv,
-});
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export const useDispatch: () => AppDispatch = dispatchHook;
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+import {Provider} from "react-redux";
+import {appStore, isProductionEnv} from "./services/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
 root.render(
-    <Provider store={store}>
+    <Provider store={appStore}>
         <Router>
             {(isProductionEnv && (
                 <React.StrictMode>

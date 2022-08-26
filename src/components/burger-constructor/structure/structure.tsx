@@ -1,7 +1,7 @@
 import burgerStructure from "./structure.module.css";
 import {BurgerDraggableIngredient} from "./draggable-ingredient/draggable-ingredient";
 import {FC} from "react";
-import {useSelector} from "../../../index";
+import {useSelector} from "../../../services/store";
 import {TIngredientUid} from "../../../utils/types";
 
 export const BurgerStructure: FC = () => {

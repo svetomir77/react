@@ -3,7 +3,7 @@ import burgerIngredients from "./burger-ingredients.module.css";
 import {TabBar} from './tab-bar/tab-bar';
 import {IngredientSection} from "./section/section";
 import {TIngredient} from "../../utils/types";
-import {useSelector} from "../../index";
+import {useSelector} from "../../services/store";
 
 export const BurgerIngredients: FC = () => {
     const scrollContainerRef = useRef<HTMLElement>(null);

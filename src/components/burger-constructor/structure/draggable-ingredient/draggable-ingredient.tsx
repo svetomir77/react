@@ -4,7 +4,7 @@ import burgerDraggableIngredient from "./draggable-ingredient.module.css";
 import {removeIngredient} from "../../../../services/slices/burger";
 import {TBurgerIngredientUidProps} from "../../../../utils/types";
 import {FC} from "react";
-import {useDispatch} from "../../../../index";
+import {useDispatch} from "../../../../services/store";
 
 export const BurgerDraggableIngredient: FC<TBurgerIngredientUidProps> = ({ingredient}) => {
     const dispatch = useDispatch();

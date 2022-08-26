@@ -2,7 +2,7 @@ import styles from "./feed.module.css";
 import React, {FC, useEffect, useMemo} from "react";
 import {OrderInfo} from "../../components/order-info/order-info";
 import {feedActions} from "../../services/slices/feed";
-import {useDispatch, useSelector} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
 import {isDone, isPending} from "../../utils/types";
 import {FEED_URL} from "../../utils/api";
 import {Link} from "react-router-dom";
@@ -13,9 +13,6 @@ export const FeedPage: FC = () => {
         orders,
         total,
         totalToday,
-        connecting,
-        online,
-        connectionError
     } = useSelector((store) => store.feed);
     useEffect(() => {
         dispatch(feedActions.wsConnect(`${FEED_URL}/all`));
