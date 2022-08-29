@@ -1,6 +1,5 @@
 .main {
     display: flex;
-    margin-right: 380px;
     margin-top: 120px;
 }
 
@@ -13,7 +12,14 @@
 }
 
 .colRight {
-    width: 480px;
+    width: 854px;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    max-height: 710px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
 }
 
 .info {
@@ -29,6 +35,5 @@
 }
 
 .buttons {
-    justify-content: center;
-    display: flex;
+    margin-left: 75px;
 }

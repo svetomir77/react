@@ -1,13 +1,53 @@
 .main {
     display: flex;
-    margin-right: 380px;
-    margin-top: 120px;
+    width: 1240px;
 }
 
 .colLeft {
-    width: 320px;
+    width: 600px;
 }
 
 .colRight {
-    width: 480px;
+    width: 580px;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftContainer {
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 8px;
+}
+
+.orderCols {
+    display: flex;
+    flex-direction: row;
+}
+
+.colRight li {
+    list-style: none;
+}
+
+.orderLeft, .orderRight {
+    flex: 1;
+}
+
+.orderCols ul {
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: flex;
+    max-height: 330px;
+    overflow: hidden;
+}
+
+.orderCols li {
+    width: 50%;
+}
+
+.done li {
+    color: #00CCCC;
 }

@@ -1,21 +1,27 @@
 import {createSlice} from '@reduxjs/toolkit';
 import addUUID from "../../utils/uuid";
-import {TIngredientUid} from "../../utils/types";
+import {TIngredient, TIngredientsUid, TIngredientUid} from "../../utils/types";
 
-const initialState = {
+const initialState:TBurgerState = {
     ingredients: [],
     bun: {
         price: 0,
         image: '',
         name: '',
+        _id: '',
     },
 };
+
+type TBurgerState = {
+    ingredients: TIngredientsUid;
+    bun: TIngredientUid | Pick<TIngredient, 'price' | 'image' | 'name' | '_id'>;
+}
 
 const burgerSlice = createSlice({
     name: 'burger',
     initialState,
     reducers: {
-        addIngredient(state: any, action) {
+        addIngredient(state, action) {
             const {ingredient, before} = action.payload;
             const beforeIndex = state.ingredients.findIndex((item: TIngredientUid) => item.uuid === before);
             const burgerIngredient = addUUID(state.ingredients, {...ingredient}, '_id');
@@ -32,7 +38,7 @@ const burgerSlice = createSlice({
         addBun(state, action) {
             state.bun = action.payload;
         },
-        changeIngredientPosition(state: any, action) {
+        changeIngredientPosition(state, action) {
             const {ingredient, before} = action.payload;
             if (before !== ingredient.uuid) {
                 const removeCurrentIndex = state.ingredients.findIndex((item: TIngredientUid) => item.uuid === ingredient.uuid);

@@ -1,6 +1,7 @@
 import React, {SyntheticEvent} from "react";
 
 export type TIngredient = {
+    count?: number,
     _id: string,
     name: string,
     type: 'bun' | 'sauce' | 'main',
@@ -21,14 +22,18 @@ export type TIngredients = TIngredient[];
 
 export type TIngredientsUid = TIngredientUid[];
 
-export type TBurgerIngredientProps = {
+export type TBurgerIngredientUidProps = {
     ingredient: TIngredientUid,
+}
+export type TBurgerIngredientProps = {
+    ingredient: TIngredient,
 }
 
 export type TOnClose = ((e: SyntheticEvent | KeyboardEvent) => void)
 
 export type LocationState = {
     ingredient?: TIngredient;
+    order?:TOrder;
     from?: string;
 }
 
@@ -41,8 +46,12 @@ export type TUser = TLogin & {
     name: string;
 }
 
+export type TOrderIngredients = {
+    ingredients: string[];
+}
+
 export type TToken = {
-    token?: string;
+    token: string | null;
 }
 
 export type TButton = React.FC<{
@@ -54,3 +63,40 @@ export type TButton = React.FC<{
     htmlType?: 'button' | 'submit' | 'reset';
     children: React.ReactNode;
 }>
+
+export type TAuthState = {
+    accessToken: string | null,
+    refreshToken: string | null,
+    user: {
+        email: string,
+        name: string,
+    },
+    message: string | null,
+    isLoading: boolean,
+    hasError: boolean,
+}
+
+export const isDone = 'done';
+export const isPending = 'pending';
+export const isCreated = 'created';
+export type TStatus = typeof isDone | typeof isPending | typeof isCreated;
+export type TOrder = {
+    _id: string;
+    ingredients: (string | TIngredient)[];
+    status: TStatus;
+    number: number;
+    name: string;
+    createdAt:string;
+    updatedAt:string;
+    price: number;
+}
+
+export type TFeedState = {
+    orders: TOrder[] | [];
+    total: number;
+    totalToday: number;
+    connecting: boolean;
+    online: boolean;
+    connectionError: string | null;
+    selected: TOrder | null;
+}

@@ -1,4 +1,4 @@
-import {TIngredientsUid, TLogin, TToken, TUser} from "./types";
+import {TIngredientsUid, TLogin, TOrderIngredients, TToken, TUser} from "./types";
 
 const API_URL = 'https://norma.nomoreparties.space/api';
 const BURGER_URL = `${API_URL}/ingredients`;
@@ -10,8 +10,9 @@ const REGISTER_URL = `${API_URL}/auth/register`;
 const LOGOUT_URL = `${API_URL}/auth/logout`;
 const TOKEN_URL = `${API_URL}/auth/token`;
 const USER_URL = `${API_URL}/auth/user`;
+export const FEED_URL = 'wss://norma.nomoreparties.space/orders';
 
-function getPostCfg(params: any = undefined) {
+function getPostCfg(params: {} | undefined = undefined) {
     return {
         method: 'POST',
         headers: {
@@ -22,7 +23,7 @@ function getPostCfg(params: any = undefined) {
     }
 }
 
-function getAuthCfg(method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH', params: { token?: string, body?: any }) {
+function getAuthCfg(method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH', params: { token: string | null, body?: any }) {
     let cfg = {
         method: method,
         mode: 'cors',
@@ -52,7 +53,7 @@ async function checkResponse(res: Response) {
     return data;
 }
 
-function apiFetch(url: string, config: any = undefined) {
+function apiFetch(url: string, config: object | undefined = undefined) {
     return fetch(url, config || {})
         .then(checkResponse);
 }
@@ -61,8 +62,8 @@ export function loadIngredients() {
     return apiFetch(BURGER_URL);
 }
 
-export function postOrder(params: { ingredients: TIngredientsUid }) {
-    return apiFetch(ORDER_URL, getPostCfg(params));
+export function postOrder(params: TToken & { body: TOrderIngredients }) {
+    return apiFetch(ORDER_URL, getAuthCfg('POST', params));
 }
 
 export function postPasswordResetRequest(params: Pick<TLogin, 'email'>) {

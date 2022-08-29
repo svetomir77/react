@@ -1,32 +1,47 @@
-import styles from './order-details.module.css';
+import styles from './order-confirm.module.css';
 import React, {FC, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {placeOrder} from "../../services/slices/order-details";
 import {removeAllIngredients} from "../../services/slices/burger";
 import {TIngredient} from "../../utils/types";
-import {AppDispatch} from "../../index";
+import {useDispatch, useSelector} from "../../services/store";
+import {useAuth} from "../../services/auth";
 
-export const OrderDetails: FC = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const {ingredients, bun, isLoading, hasError, orderNum} = useSelector((store: any) => {
+export const OrderConfirm: FC = () => {
+    const dispatch = useDispatch();
+    const {getUser} = useAuth();
+
+    const {ingredients, bun, isLoading, hasError, orderNum, accessToken} = useSelector((store) => {
         return {
             ingredients: store.burger.ingredients,
             bun: store.burger.bun,
             isLoading: store.order.isLoading,
             hasError: store.order.hasError,
             orderNum: store.order.num,
+            accessToken: store.auth.accessToken,
         }
     });
 
+    const auth = async () => {
+        await getUser();
+    };
+
     useEffect(() => {
-        const ingredientIds = ingredients.map((item: TIngredient) => item._id);
-        const bunId = bun._id;
-        const params = {
-            ingredients: [bunId, ...ingredientIds, bunId]
-        };
-        // @ts-ignore
-        dispatch(placeOrder(params));
-    }, []);
+        const order = function () {
+            const ingredientIds = ingredients.map((item: TIngredient) => item._id);
+            const bunId = bun._id;
+            const body = {
+                ingredients: [bunId, ...ingredientIds, bunId]
+            };
+            const params = {token: accessToken, body: body};
+            dispatch(placeOrder(params));
+        }
+        if (!accessToken) {
+            auth();
+        } else {
+            order();
+        }
+
+    }, [accessToken]);
 
     useEffect(() => {
         if (orderNum) {

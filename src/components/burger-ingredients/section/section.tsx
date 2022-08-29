@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {IngredientList} from '../list/list';
-import {TIngredientsUid} from '../../../utils/types';
+import {TIngredients} from '../../../utils/types';
 
 type TSectionProps = {
     id: string,
-    ingredients: TIngredientsUid,
+    ingredients: TIngredients,
     title: string,
 }
 

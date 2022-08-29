@@ -16,6 +16,8 @@ export function setCookie(name: string, value: string | null, props: any = undef
     if (exp && exp.toUTCString) {
         props.expires = exp.toUTCString();
     }
+
+    props.path='/';
     value = encodeURIComponent(value!);
     let updatedCookie = name + '=' + value;
     for (const propName in props) {

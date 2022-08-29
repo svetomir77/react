@@ -1,14 +1,13 @@
 import React, {FC, FormEvent, useState} from 'react';
 import {Center} from "../../components/center/center";
-import {Button as ButtonUI, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, Redirect, useLocation} from "react-router-dom";
 import {useAuth} from "../../services/auth";
 import {clearMessage} from "../../services/slices/auth";
-import {useDispatch} from "react-redux";
-import {LocationState, TButton} from "../../utils/types";
-
-const Button: TButton = ButtonUI;
+import {LocationState} from "../../utils/types";
+import {Button} from "../../components/Button";
+import {useDispatch} from "../../services/store";
 
 export const LoginPage: FC = () => {
     const initialData = {
@@ -29,7 +28,6 @@ export const LoginPage: FC = () => {
         );
     }
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-        // @ts-ignore
         dispatch(clearMessage());
         setActionMade(true);
         e.preventDefault();

@@ -2,13 +2,13 @@ import React, {FC} from "react";
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import draggableIngredient from "./draggable-ingredient.module.css";
 import {DragSourceMonitor, useDrag} from "react-dnd";
-import {useSelector} from "react-redux";
-import {TBurgerIngredientProps, TIngredientUid} from "../../../../utils/types";
+import {TBurgerIngredientProps, TIngredient} from "../../../../utils/types";
+import {useSelector} from "../../../../services/store";
 
 export const DraggableIngredient: FC<TBurgerIngredientProps> = ({ingredient}) => {
-    const {ingredients, bun} = useSelector((store: any) => store.burger);
+    const {ingredients, bun} = useSelector((store) => store.burger);
     const count = (ingredient.type === 'bun' && bun._id === ingredient._id) ? 2
-        : ingredients.reduce((acc: number, current: TIngredientUid) => acc + Number(current._id === ingredient._id), 0);
+        : ingredients.reduce((acc: number, current: TIngredient) => acc + Number(current._id === ingredient._id), 0);
 
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',

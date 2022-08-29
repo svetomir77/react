@@ -11,19 +11,31 @@ import {FeedPage} from "../../pages/feed/feed";
 import {ProtectedRoute} from "../protected-route";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {Modal} from "../modal/modal";
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import {AppHeader} from "../app-header/app-header";
 import {LocationState, TOnClose} from "../../utils/types";
+import {ProfileOrderDetailsPage} from "../../pages/profile/order-details/order-details";
+import {FeedDetailsPage} from "../../pages/feed-details/feed-details";
+import {OrderList} from "../order-list/order-list";
+import {fetchIngredients} from "../../services/slices/ingredients";
+import {useDispatch} from "../../services/store";
 
 export const App: FC = () => {
     const location = useLocation();
     const state = location.state as LocationState;
     const ingredient = state?.ingredient;
+    const order = state?.order;
     const history = useHistory();
     const back: TOnClose = (e) => {
         e && e.stopPropagation();
         history.goBack();
     };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchIngredients());
+    }, []);
+
     return (
         <>
             <div className="page">
@@ -51,11 +63,17 @@ export const App: FC = () => {
                         <ProfileOrdersPage/>
                     </ProtectedRoute>
                     <Route path="/ingredients/:id" exact={true}>
-                        <IngredientDetailsPage/>
+                        {ingredient ? <HomePage/> : <IngredientDetailsPage/>}
                     </Route>
                     <Route path="/feed" exact={true}>
                         <FeedPage/>
                     </Route>
+                    <Route path="/feed/:id" exact={true}>
+                        {order ? <FeedPage/> : <FeedDetailsPage/>}
+                    </Route>
+                    <ProtectedRoute path="/profile/orders/:id" exact={true}>
+                        {order ? <ProfileOrdersPage/> : <ProfileOrderDetailsPage/>}
+                    </ProtectedRoute>
                 </Switch>
             </div>
             {ingredient && (
@@ -67,6 +85,17 @@ export const App: FC = () => {
                         onClose={back}
                     >
                         <IngredientDetails ingredient={ingredient}/>
+                    </Modal>
+                </Route>
+            )}
+            {order && (
+                <Route path={['/feed/:id', '/profile/orders/:id']} exact={true}>
+                    <Modal
+                        width={920}
+                        height={740}
+                        onClose={back}
+                    >
+                        <OrderList order={order}/>
                     </Modal>
                 </Route>
             )}

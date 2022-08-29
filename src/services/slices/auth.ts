@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
     createUser,
     getUserRequest,
@@ -10,7 +10,7 @@ import {
     updateUser
 } from "../../utils/api";
 import {deleteCookie, getCookie, setCookie} from "../../utils/cookies";
-import {TLogin, TToken, TUser} from "../../utils/types";
+import {TAuthState, TLogin, TToken, TUser} from "../../utils/types";
 
 export const authLogin = createAsyncThunk(
     'auth/login',
@@ -29,7 +29,7 @@ export const authLogout = createAsyncThunk(
     'auth/logout',
     async (params, {rejectWithValue}) => {
         try {
-            const token = getCookie('token');
+            const token = getCookie('token') || null;
             const response = await postLogout({token: token});
             deleteCookie('token');
             return response;
@@ -103,46 +103,50 @@ export const userCreate = createAsyncThunk(
 
 export const getUserAccess = createAsyncThunk(
     'auth/getUser',
-    async (params: TToken, {rejectWithValue}) => {
+    async (params:TToken, action) => {
+        const {rejectWithValue} = action;
         try {
             const response = await getUserRequest(params);
             return response;
-        } catch (err) {
+        } catch (err:any) {
             return rejectWithValue(err);
         }
     }
 );
 
-
-const initialState = {
+const initialState:TAuthState = {
     accessToken: null,
     refreshToken: null,
-    user: null,
+    user: {
+        email: '',
+        name: '',
+    },
     message: null,
     isLoading: false,
     hasError: false,
 };
 
-const pendingState = (state: any) => {
+const pendingState = (state:TAuthState) => {
     state.isLoading = true;
-    state.hasError = null;
+    state.hasError = false;
 }
-const fulfilledState = (state: any, action: any) => {
-    state.message = action.payload.message || null;
+const fulfilledState = (state:TAuthState, action: PayloadAction<TAuthState>) => {
+    const {payload} = action;
+    state.message = payload.message || null;
 
-    if (action.payload.user) {
-        state.user = action.payload.user;
+    if (payload.user) {
+        state.user = payload.user;
     }
-    if (action.payload.accessToken) {
-        state.accessToken = action.payload.accessToken;
+    if (payload.accessToken) {
+        state.accessToken = payload.accessToken;
     }
-    if (action.payload.refreshToken) {
-        state.refreshToken = action.payload.refreshToken;
+    if (payload.refreshToken) {
+        state.refreshToken = payload.refreshToken;
     }
     state.isLoading = false;
-    state.hasError = null;
+    state.hasError = false;
 }
-const rejectedState = (state: any, action: any) => {
+const rejectedState = (state:TAuthState, action:any) => {
     state.isLoading = false;
     state.hasError = true;
     state.message = action.payload;
@@ -152,8 +156,8 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        clearMessage(state: any, action) {
-            state.message = '';
+        clearMessage(state) {
+            state.message = null;
         }
     },
     extraReducers: (builder) => {

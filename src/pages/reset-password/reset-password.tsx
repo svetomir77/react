@@ -1,14 +1,13 @@
 import React, {FC, FormEvent, useState} from 'react';
 import {Center} from "../../components/center/center";
-import {Button as ButtonUI, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useFieldChange} from "../../services/hooks/use-field-change";
 import {Link, Redirect, useLocation} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {clearMessage, passwordResetUpdate} from "../../services/slices/auth";
 import {useAuth} from "../../services/auth";
-import {LocationState, TButton} from "../../utils/types";
-
-const Button: TButton = ButtonUI;
+import {LocationState} from "../../utils/types";
+import {Button} from "../../components/Button";
+import {useDispatch} from "../../services/store";
 
 export const ResetPasswordPage: FC = () => {
     const initialData = {
@@ -24,7 +23,6 @@ export const ResetPasswordPage: FC = () => {
     const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-        // @ts-ignore
         dispatch(clearMessage());
         setActionMade(true);
         e.preventDefault();
@@ -33,7 +31,6 @@ export const ResetPasswordPage: FC = () => {
             password: logInData.password,
             token: logInData.token,
         };
-        // @ts-ignore
         dispatch(passwordResetUpdate(params));
     }
 
