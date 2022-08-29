@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react/static/css/main.6df39b46.css",
-    "main.js": "/react/static/js/main.0bfdc12f.js",
+    "main.js": "/react/static/js/main.8b2fb048.js",
     "static/js/787.2b4cbca8.chunk.js": "/react/static/js/787.2b4cbca8.chunk.js",
     "static/media/JetBrainsMono-Bold.woff": "/react/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "/react/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
@@ -12,11 +12,11 @@
     "static/media/check.svg": "/react/static/media/check.1c81f43b3d9677f91a54.svg",
     "index.html": "/react/index.html",
     "main.6df39b46.css.map": "/react/static/css/main.6df39b46.css.map",
-    "main.0bfdc12f.js.map": "/react/static/js/main.0bfdc12f.js.map",
+    "main.8b2fb048.js.map": "/react/static/js/main.8b2fb048.js.map",
     "787.2b4cbca8.chunk.js.map": "/react/static/js/787.2b4cbca8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6df39b46.css",
-    "static/js/main.0bfdc12f.js"
+    "static/js/main.8b2fb048.js"
   ]
 }
