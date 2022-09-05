@@ -5,8 +5,8 @@ import {Modal} from '../../modal/modal';
 import {OrderConfirm} from '../../order-confirm/order-confirm';
 import {getTotal} from "../../../services/slices/order-details";
 import {useAuth} from "../../../services/auth";
-import {useHistory} from "react-router-dom";
-import {TOnClose} from "../../../utils/types";
+import {useHistory, useLocation} from "react-router-dom";
+import {LocationState, TOnClose} from "../../../utils/types";
 import {useDispatch, useSelector} from "../../../services/store";
 import {Button} from "../../Button";
 
@@ -19,6 +19,10 @@ function OrderButton() {
         visible: false
     });
     const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
+    const state = location.state as LocationState;
+
     const {bun, ingredients, total} = useSelector((store) => {
         return {
             bun: store.burger.bun,
@@ -29,17 +33,25 @@ function OrderButton() {
 
     useEffect(() => {
         dispatch(getTotal({bun, ingredients}));
-    }, [bun, ingredients, dispatch]);
+        if (state && state.modal) {
+            setModalState({...modalState, visible: true});
+            location.state = null;
+        }
+    }, [bun, ingredients, dispatch, state]);
 
     const {logged} = useAuth();
 
-    const history = useHistory();
-
     const handleOpenModal = () => {
+        const newState = {...modalState, visible: true};
         if (logged) {
             setModalState({...modalState, visible: true});
         } else {
-            history.push('/login');
+            history.push({
+                pathname: '/login',
+                state: {
+                    modal: true
+                }
+            });
         }
     }
     const handleCloseModal: TOnClose = () => {

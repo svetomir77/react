@@ -24,7 +24,7 @@ export const LoginPage: FC = () => {
 
     if (logged) {
         return (
-            <Redirect to={state?.from || '/'}/>
+            <Redirect to={{pathname: state?.from || '/', state: state}}/>
         );
     }
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
