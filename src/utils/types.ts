@@ -35,6 +35,7 @@ export type LocationState = {
     ingredient?: TIngredient;
     order?:TOrder;
     from?: string;
+    modal?: boolean;
 }
 
 export type TLogin = {
