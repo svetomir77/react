@@ -2,6 +2,7 @@ import ingredientsReducer, {
     fetchIngredients,
     selectIngredient,
 } from './ingredients';
+import ingredientDetailsReducer from "./ingredient-details";
 
 describe('ingredients reducer actions', () => {
     const initialState = {
@@ -12,6 +13,11 @@ describe('ingredients reducer actions', () => {
     };
     const errorMessage = 'loading error';
 
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = ingredientsReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
 
     it('selectIngredient: should select ingredient', () => {
         const ingredientId = '60d3b41abdacab0026a733cd';

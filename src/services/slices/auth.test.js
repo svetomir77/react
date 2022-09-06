@@ -35,6 +35,12 @@ describe('auth reducer actions', () => {
         message: errorMessage,
     }
 
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = authReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
+
     it('authLogin: should set status to "pending"', async () => {
         const action = { type: authLogin.pending.type }
         const state = authReducer(initialState, action)

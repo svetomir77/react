@@ -2,6 +2,7 @@ import orderDetailsReducer, {
     placeOrder,
     getTotal,
 } from './order-details';
+import ingredientsReducer from "./ingredients";
 
 describe('order details reducer actions', () => {
     const initialState = {
@@ -12,6 +13,11 @@ describe('order details reducer actions', () => {
     };
     const errorMessage = 'loading error';
 
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = orderDetailsReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
 
     it('getTotal: should count total price', () => {
         const payload = {

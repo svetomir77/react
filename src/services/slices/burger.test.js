@@ -5,6 +5,7 @@ import burgerReducer, {
     changeIngredientPosition,
     removeAllIngredients
 } from './burger';
+import authReducer, {authLogin} from "./auth";
 
 describe('burger reducer actions', () => {
     const initialState = {
@@ -16,6 +17,12 @@ describe('burger reducer actions', () => {
             _id: '',
         },
     };
+
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = burgerReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
 
     it('addIngredient: should add new ingredient', () => {
         const action = {

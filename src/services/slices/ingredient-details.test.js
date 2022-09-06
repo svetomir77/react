@@ -2,12 +2,19 @@ import ingredientDetailsReducer, {
     addIngredient,
     removeIngredient,
 } from './ingredient-details';
+import feedReducer from "./feed";
 
 describe('ingredient details reducer actions', () => {
     const initialState = {
         ingredient: null,
     }
     const ingredientId = '60d3b41abdacab0026a733cd';
+
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = ingredientDetailsReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
 
     it('addIngredient: should add ingredient', () => {
 

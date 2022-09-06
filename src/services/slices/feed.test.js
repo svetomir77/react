@@ -1,6 +1,7 @@
 import feedReducer, {
     feedActions,
 } from './feed';
+import authReducer from "./auth";
 
 describe('feed reducer actions', () => {
     const initialState = {
@@ -12,6 +13,12 @@ describe('feed reducer actions', () => {
         connectionError: null,
         selected: null,
     };
+
+    it('should initial state match', async () => {
+        const action = { type: 'init' }
+        const state = feedReducer(undefined, action)
+        expect(state).toEqual(initialState)
+    })
 
     it('wsConnect: should change connectin status to true', () => {
         const action = {
